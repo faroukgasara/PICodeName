@@ -11,7 +11,9 @@ import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import static com.codename1.ui.CN.CENTER;
 import com.codename1.ui.ComboBox;
+import com.codename1.ui.Command;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
@@ -39,13 +41,38 @@ public class ListEvents extends Form {
     private TextField tfPrenom;
     private TextField tfNom;
     private Resources theme;
+    Form current;
 
     private Button clear;
     private Button submit;
+    Image icon = FontImage.createMaterial(FontImage.MATERIAL_UPDATE, "Button", 3.0f);
 
-    public SwipeableContainer createRankWidget(String title, String year) {
+    public SwipeableContainer createRankWidget(String title, String type,Evenement s ,String id) {
         MultiButton button = new MultiButton(title);
-        button.setTextLine2(year);
+        button.setIcon(icon);
+        current = this;
+
+        //button.setTextLine1(id);
+        button.setPressedIcon(icon);
+        button.addLongPressListener(e
+                -> ServiceEvent.getInstance().deleteEvent(Integer.parseInt(id))
+        );
+        
+        button.addLongPressListener(e
+                -> Dialog.show("Success", "Event Deleted", new Command("OK"))
+        );
+        
+        button.addLongPressListener(e
+                -> new ListEvents(current).show()
+        );
+        
+        button.addActionListener(e
+                -> new UpdateEvent(s,id).show()
+        );
+        button.setTextLine2(type);
+        button.setName("Label_3_3");
+        button.setUIID("SmallFontLabel");
+
         return new SwipeableContainer(FlowLayout.encloseCenterMiddle(createStarRankSlider()),
                 button);
     }
@@ -79,18 +106,17 @@ public class ListEvents extends Form {
 
     public ListEvents(Form previous) {
         setTitle("List Events");
+        current = this;
 
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);
         list.setDropTarget(true);
 
-
         ArrayList<Evenement> ev = new ArrayList<Evenement>();
         ev = ServiceEvent.getInstance().getAllEvents();
 
         for (Evenement s : ev) {
-
-            list.add(createRankWidget(s.getTitle(), s.getType()));
+            list.add(createRankWidget(s.getTitle(), s.getType(), s,Integer.toString(s.getId())));
         }
         addAll(list);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
