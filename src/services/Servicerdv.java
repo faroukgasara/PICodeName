@@ -144,5 +144,19 @@ public class Servicerdv {
         System.out.println(events.toString());
         return events;
     }
+    public boolean deleteEvent(int id) {
+        String url = "http://127.0.0.1:8000/webservicesdeleterdv/" + id;
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        System.out.println(events.toString());
+        return true;
+    }
 
 }

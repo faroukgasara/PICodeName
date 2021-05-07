@@ -9,7 +9,9 @@ import PICodeName.entities.Evenement;
 import PICodeName.entities.Rendezvous;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
+import com.codename1.ui.Command;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
@@ -41,9 +43,27 @@ public class Listrdv extends Form {
 
     private Button clear;
     private Button submit;
+    Form current;
+     Image icon = FontImage.createMaterial(FontImage.MATERIAL_UPDATE, "Button", 3.0f);
 
-    public SwipeableContainer createRankWidget(Date d,String title, String year) {
-        MultiButton button = new MultiButton(title);
+    public SwipeableContainer createRankWidget(Date d,String title, String year,String id) {
+         MultiButton button = new MultiButton(title);
+        button.setIcon(icon);
+        current = this;
+
+        //button.setTextLine1(id);
+        button.setPressedIcon(icon);
+        button.addLongPressListener(e
+                -> Servicerdv.getInstance().deleteEvent(Integer.parseInt(id))
+        );
+        
+        button.addLongPressListener(e
+                -> Dialog.show("Success", "RDV Deleted", new Command("OK"))
+        );
+        
+        button.addLongPressListener(e
+                -> new ListEvents(current).show()
+        );
         button.setTextLine2(year);
         button.setTextLine3(d.toString());
         return new SwipeableContainer(FlowLayout.encloseCenterMiddle(createStarRankSlider()),
@@ -90,7 +110,7 @@ public class Listrdv extends Form {
 
         for (Rendezvous s : ev) {
 
-            list.add(createRankWidget(s.getDate(),s.getMeet(), s.getDescription()));
+            list.add(createRankWidget(s.getDate(),s.getMeet(), s.getDescription(),Integer.toString(s.getId())));
         }
         addAll(list);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
