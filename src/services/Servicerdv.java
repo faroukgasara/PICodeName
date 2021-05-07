@@ -95,6 +95,42 @@ public class Servicerdv {
         return true;
 
     }
+     public boolean updaterdv(Rendezvous e,int id) {
+        JSONObject json = new JSONObject();
+        try {
+            ConnectionRequest post = new ConnectionRequest() {
+                @Override
+                protected void buildRequestBody(OutputStream os) throws IOException {
+                    os.write(json.toString().getBytes("UTF-8"));
+                }
+
+                @Override
+                protected void readResponse(InputStream input) throws IOException {
+                }
+
+                @Override
+                protected void postResponse() {
+                }
+            };
+
+            json.put("meet", e.getMeet());
+            json.put("date", e.getDate());
+            json.put("description", e.getDescription());
+            json.put("mail_id", e.getMail_id());
+
+            post.setUrl("http://127.0.0.1:8000/webservicesupdaterdv/"+id);
+            post.setPost(true);
+            post.setContentType("application/json");
+            post.addArgument("body", json.toString());
+            String bodyToString = json.toString();
+            NetworkManager.getInstance().addToQueueAndWait(post);
+            Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(post.getResponseData()), "UTF-8"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return true;
+
+    }
 
     public ArrayList<Rendezvous> parserdv(String jsonText) throws Exception  {
         try {
@@ -144,7 +180,7 @@ public class Servicerdv {
         System.out.println(events.toString());
         return events;
     }
-    public boolean deleteEvent(int id) {
+    public boolean deleterdv(int id) {
         String url = "http://127.0.0.1:8000/webservicesdeleterdv/" + id;
         req.setUrl(url);
         req.setPost(false);
