@@ -65,7 +65,7 @@ public class Listrdv extends Form {
                 -> new Listrdv(current).show()
         );
          button.addActionListener(e
-                -> new Updaterdv(s,id).show()
+                -> new Updaterdv(s,id,current).show()
         );
         button.setName("Label_3_3");
         button.setUIID("SmallFontLabel");
