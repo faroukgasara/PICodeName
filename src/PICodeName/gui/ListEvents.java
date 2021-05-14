@@ -39,7 +39,6 @@ public class ListEvents extends Form {
     private TextField tfPrenom;
     private TextField tfNom;
     private Resources theme;
-
     private Button clear;
     private Button submit;
 

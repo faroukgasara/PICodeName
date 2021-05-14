@@ -23,9 +23,11 @@ public class Home extends Form{
         add(new Label("Choose"));
         Button btnAddEvent = new Button("Add Event");
         Button btnListEvents = new Button("List Events");
+        Button btnAddFormation = new Button("Add Formation");
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
         btnListEvents.addActionListener(e-> new ListEvents(current).show());
-        addAll(btnAddEvent,btnListEvents);
+        btnAddFormation.addActionListener(e-> new addformation().show());
+        addAll(btnAddEvent,btnListEvents,btnAddFormation);
         
         
     }
