@@ -67,6 +67,12 @@ public class Rendezvous implements Serializable{
         this.description = description;
     }
 
+    public Rendezvous(Date date, String meet, String description) {
+        this.date = date;
+        this.meet = meet;
+        this.description = description;
+    }
+
     public Rendezvous(Date date, String meet,String description, int mail_id) {
         this.date = date;
         this.meet = meet;

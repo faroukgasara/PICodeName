@@ -5,9 +5,10 @@
  */
 package PICodeName.gui;
 
-import PICodeName.entities.Evenement;
 import PICodeName.entities.Rendezvous;
+import PICodeName.entities.Surfer;
 import com.codename1.ui.Button;
+import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -18,7 +19,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.Picker;
-import services.ServiceEvent;
+import java.util.ArrayList;
 import services.Servicerdv;
 
 /**
@@ -28,11 +29,21 @@ import services.Servicerdv;
 public class Addrdv extends Form {
 
     public Addrdv(Form previous) {
+        
         setTitle("Add New Rendez_vous");
         setLayout(BoxLayout.y());
         TextField tfMeet = new TextField("", "Meet");
         TextField tfDescription = new TextField("", "Description");
-        TextField tfMail = new TextField("", "Mail_id");
+        ComboBox cb=new ComboBox();
+         ArrayList<Surfer> ev = new ArrayList<Surfer>();
+        ev = Servicerdv.getInstance().getcombo();
+
+        for (Surfer s : ev) {
+cb.addItem(s.getId());
+
+        }
+        //TextField tfMail = new TextField("", "Mail_id");
+      
         Picker date = new Picker();
         date.setType(Display.PICKER_TYPE_DATE_AND_TIME);
         Button btnValider = new Button("Add Rendez_vous");
@@ -44,7 +55,7 @@ public class Addrdv extends Form {
                     Dialog.show("Alert", "Please Fill All fields", new Command("OK"));
                 } else {
                     try {
-                        Rendezvous e = new Rendezvous(date.getDate(),tfMeet.getText(), tfDescription.getText(),Integer.parseInt(tfMail.getText()));
+                        Rendezvous e = new Rendezvous(date.getDate(),tfMeet.getText(), tfDescription.getText(),Integer.parseInt(cb.getSelectedItem().toString()));
                         if (Servicerdv.getInstance().addrdv(e)) {
                             Dialog.show("Success", "Connection accepted", new Command("OK"));
 
@@ -58,9 +69,9 @@ public class Addrdv extends Form {
 
             }
         });
-        addAll(tfMeet,tfDescription,tfMail,date, btnValider);
+        addAll(tfMeet,tfDescription,cb,date, btnValider);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
 
     }
-
+  
 }

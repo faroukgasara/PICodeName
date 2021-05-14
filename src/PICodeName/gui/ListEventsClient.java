@@ -6,7 +6,6 @@
 package PICodeName.gui;
 
 import PICodeName.entities.Evenement;
-import PICodeName.entities.Rendezvous;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -27,51 +26,48 @@ import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
-import java.util.Date;
 import services.ServiceEvent;
-import services.Servicerdv;
 
 /**
  *
- * @author wassim
+ * @author farou
  */
-public class Listrdv extends Form {
+public class ListEventsClient extends Form {
 
     private TextField tfPrenom;
     private TextField tfNom;
     private Resources theme;
+    Form current;
 
     private Button clear;
     private Button submit;
-    Form current;
-     Image icon = FontImage.createMaterial(FontImage.MATERIAL_UPDATE, "Button", 3.0f);
+    //Image icon = FontImage.createMaterial(FontImage.MATERIAL_UPDATE, "Button", 3.0f);
 
-    public SwipeableContainer createRankWidget(Date d,String meet,Rendezvous s, String desc,String id) {
-         MultiButton button = new MultiButton(meet);
-        button.setIcon(icon);
+    public SwipeableContainer createRankWidget(String title, String type, Evenement s, String id) {
+        MultiButton button = new MultiButton(title);
+        //button.setIcon(icon);
         current = this;
 
         //button.setTextLine1(id);
-        button.setPressedIcon(icon);
-        button.addLongPressListener(e
-                -> Servicerdv.getInstance().deleterdv(Integer.parseInt(id))
+        //button.setPressedIcon(icon);
+        button.addActionListener(e
+                -> new EventDetails(current, id).show()
         );
-        
-        button.addLongPressListener(e
-                -> {Dialog.show("Confirmation","Delete this RDV?","ok","Annuler");});
-        
-        
-        button.addLongPressListener(e
-                -> new Listrdv(current).show()
+
+        button.addActionListener(e
+                -> ServiceEvent.getInstance().Viewed(Integer.parseInt(id))
         );
-         button.addActionListener(e
-                -> new Updaterdv(s,id,current).show()
+
+        button.addLongPressListener(e
+                 -> new Bookin(current, Integer.parseInt(id)).show()
         );
+
+        
+        button.setTextLine2(type);
         button.setName("Label_3_3");
         button.setUIID("SmallFontLabel");
-        button.setTextLine2(desc);
-        button.setTextLine3(d.toString());
-        return new SwipeableContainer(FlowLayout.encloseCenterMiddle(createStarRankSlider()),
+
+        return new SwipeableContainer(null,
                 button);
     }
 
@@ -102,20 +98,19 @@ public class Listrdv extends Form {
         return starRank;
     }
 
-    public Listrdv(Form previous) {
-        setTitle("List Rendez_vous");
+    public ListEventsClient(Form previous) {
+        setTitle("List Events");
+        current = this;
 
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);
         list.setDropTarget(true);
 
+        ArrayList<Evenement> ev = new ArrayList<Evenement>();
+        ev = ServiceEvent.getInstance().getAllEvents();
 
-        ArrayList<Rendezvous> ev = new ArrayList<Rendezvous>();
-        ev = Servicerdv.getInstance().getAllrdvs();
-
-        for (Rendezvous s : ev) {
-
-            list.add(createRankWidget(s.getDate(),s.getMeet(),s, s.getDescription(),Integer.toString(s.getId())));
+        for (Evenement s : ev) {
+            list.add(createRankWidget(s.getTitle(), s.getType(), s, Integer.toString(s.getId())));
         }
         addAll(list);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
