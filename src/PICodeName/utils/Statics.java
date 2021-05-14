@@ -10,6 +10,6 @@ package PICodeName.utils;
  * @author farou
  */
 public class Statics {
-    public static final String BASE_URL="http://41.226.11.252:11300";
+    public static final String BASE_URL="http://51.89.167.87:51100";
     
 }

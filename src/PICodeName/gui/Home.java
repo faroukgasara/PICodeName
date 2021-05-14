@@ -21,13 +21,32 @@ public class Home extends Form{
         setTitle("Home");
         setLayout(BoxLayout.y());
         add(new Label("Choose"));
-        Button btnAddEvent = new Button("Add Event");
+
         Button btnListEvents = new Button("List Events");
+        btnListEvents.addActionListener(e-> new ListEventsClient(current).show());
+
+        Button btnAddEvent = new Button("Add Event");
+        Button btnAddoffre = new Button("Add Offre");
+        Button btnListEvents = new Button("List Events");
+
         Button btnAddFormation = new Button("Add Formation");
+        Button btnAddrdv = new Button("Add Rendez_vous");
+        Button btnListrdv = new Button("List Rendez_vous");
+        btnAddrdv.addActionListener(e-> new Addrdv(current).show());
+        btnListrdv.addActionListener(e-> new Listrdv(current).show());
+        addAll(btnListEvents,btnAddrdv,btnListrdv);
+
+
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
+        btnAddoffre.addActionListener(e-> new addoffre().show());
         btnListEvents.addActionListener(e-> new ListEvents(current).show());
         btnAddFormation.addActionListener(e-> new addformation().show());
         addAll(btnAddEvent,btnListEvents,btnAddFormation);
+
+        
+
+        
+        addAll(btnAddEvent,btnListEvents,btnAddoffre,btnAddrdv,btnListrdv);
         
         
     }
