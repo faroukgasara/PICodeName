@@ -26,7 +26,7 @@ import services.ServiceEvent;
 public class AddEvent extends Form {
 Form current;
     public AddEvent(Form previous) {
-        current = new Home();
+        current = new HomeAdmin();
         
         setTitle("Add New Event");
         setLayout(BoxLayout.y());

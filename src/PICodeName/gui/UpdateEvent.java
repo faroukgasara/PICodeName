@@ -23,12 +23,16 @@ import services.ServiceEvent;
  *
  * @author farou
  */
-public class UpdateEvent extends Form{
-Form current;
-    public UpdateEvent(Evenement e ,String id) {
-        current = new Home();
+public class UpdateEvent extends Form {
+
+    Form current;
+    Form c;
+
+    public UpdateEvent(Evenement e, String id, Form previous) {
+        c = new HomeAdmin();
+        current = new ListEvents(c);
         System.out.println(e.toString());
-        
+
         setTitle("Update Event");
         setLayout(BoxLayout.y());
         TextField tfTitle = new TextField(e.getTitle());
@@ -46,10 +50,10 @@ Form current;
                     Dialog.show("Alert", "Please Fill All fields", new Command("OK"));
                 } else {
                     try {
-                        Evenement e = new Evenement(date.getDate(),tfTitle.getText(), tfType.getText(),tfDescription.getText(), tfLocalisation.getText(), 0,0);
-                        if (ServiceEvent.getInstance().updateEvent(e,Integer.parseInt(id))) {
+                        Evenement e = new Evenement(date.getDate(), tfTitle.getText(), tfType.getText(), tfDescription.getText(), tfLocalisation.getText(), 0, 0);
+                        if (ServiceEvent.getInstance().updateEvent(e, Integer.parseInt(id))) {
                             Dialog.show("Success", "Event Updated", new Command("OK"));
-                             new ListEvents(current).show();
+                            new HomeAdmin().show();
                         } else {
                             Dialog.show("ERROR", "Server Error", new Command("OK"));
                         }
@@ -59,10 +63,9 @@ Form current;
                 }
             }
         });
-        addAll(tfTitle, tfType,tfDescription,tfLocalisation,date, btnValider);
-        //getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
+        addAll(tfTitle, tfType, tfDescription, tfLocalisation, date, btnValider);
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, ei -> previous.show());
 
     }
 
-    
 }
