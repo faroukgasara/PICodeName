@@ -3,9 +3,12 @@
   <persistence-unit name="PICodeNamePU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>PICodeName.entities.Evenement</class>
+
     <class>PICodeName.entities.ParticipationE</class>
     <class>PICodeName.entities.ParticipantE</class>
     <class>PICodeName.entities.Booking</class>
+
+    <class>PICodeName.entities.Surfer</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pi?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

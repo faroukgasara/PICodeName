@@ -46,25 +46,30 @@ public class Listrdv extends Form {
     Form current;
      Image icon = FontImage.createMaterial(FontImage.MATERIAL_UPDATE, "Button", 3.0f);
 
-    public SwipeableContainer createRankWidget(Date d,String title, String year,String id) {
-         MultiButton button = new MultiButton(title);
+    public SwipeableContainer createRankWidget(Date d,String meet,Rendezvous s, String desc,String id) {
+         MultiButton button = new MultiButton(meet);
         button.setIcon(icon);
         current = this;
 
         //button.setTextLine1(id);
         button.setPressedIcon(icon);
         button.addLongPressListener(e
-                -> Servicerdv.getInstance().deleteEvent(Integer.parseInt(id))
+                -> Servicerdv.getInstance().deleterdv(Integer.parseInt(id))
         );
         
         button.addLongPressListener(e
-                -> Dialog.show("Success", "RDV Deleted", new Command("OK"))
-        );
+                -> {Dialog.show("Confirmation","Delete this RDV?","ok","Annuler");});
+        
         
         button.addLongPressListener(e
-                -> new ListEvents(current).show()
+                -> new Listrdv(current).show()
         );
-        button.setTextLine2(year);
+         button.addActionListener(e
+                -> new Updaterdv(s,id,current).show()
+        );
+        button.setName("Label_3_3");
+        button.setUIID("SmallFontLabel");
+        button.setTextLine2(desc);
         button.setTextLine3(d.toString());
         return new SwipeableContainer(FlowLayout.encloseCenterMiddle(createStarRankSlider()),
                 button);
@@ -110,7 +115,7 @@ public class Listrdv extends Form {
 
         for (Rendezvous s : ev) {
 
-            list.add(createRankWidget(s.getDate(),s.getMeet(), s.getDescription(),Integer.toString(s.getId())));
+            list.add(createRankWidget(s.getDate(),s.getMeet(),s, s.getDescription(),Integer.toString(s.getId())));
         }
         addAll(list);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
