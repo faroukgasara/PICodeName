@@ -52,12 +52,6 @@ public class Servicerdv {
     }
 
     public boolean addrdv(Rendezvous e) {
-        /*json.put("title", "Test");
-                    json.put("type", "Test");
-                    json.put("description", "Test");
-                    json.put("localitation", "Testpw");
-                    json.put("id_societe", 1);
-                  req.setUrl("http://127.0.0.1:8000/webserviceseventaddevent");*/
         JSONObject json = new JSONObject();
         try {
             ConnectionRequest post = new ConnectionRequest() {
@@ -94,7 +88,7 @@ public class Servicerdv {
             NetworkManager.getInstance().addToQueueAndWait(post);
             Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(post.getResponseData()), "UTF-8"));
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());;
         }
         return true;
 
@@ -120,7 +114,7 @@ public class Servicerdv {
             json.put("meet", e.getMeet());
             json.put("date", e.getDate());
             json.put("description", e.getDescription());
-            json.put("mail_id", e.getMail_id());
+            //json.put("mail_id", e.getMail_id());
 
             post.setUrl("http://127.0.0.1:8000/webservicesupdaterdv/"+id);
             post.setPost(true);
@@ -148,10 +142,10 @@ public class Servicerdv {
                 Rendezvous e = new Rendezvous();
                 float id = Float.parseFloat(obj.get("id").toString());
                 e.setId((int) id);
+                
                 e.setMeet(obj.get("meet").toString());
                 String sDate1=obj.get("date").toString();  
                 Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+00:00").parse(sDate1);
-    
                 e.setDate(date);
                 // e.setStatus(((int)Float.parseFloat(obj.get("status").toString())));
                 e.setDescription(obj.get("description").toString());

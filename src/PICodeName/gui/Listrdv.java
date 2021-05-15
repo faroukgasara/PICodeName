@@ -5,11 +5,10 @@
  */
 package PICodeName.gui;
 
-import PICodeName.entities.Evenement;
 import PICodeName.entities.Rendezvous;
+import PICodeName.entities.Surfer;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Button;
-import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -28,7 +27,6 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
 import java.util.Date;
-import services.ServiceEvent;
 import services.Servicerdv;
 
 /**
@@ -109,11 +107,12 @@ public class Listrdv extends Form {
         list.setScrollableY(true);
         list.setDropTarget(true);
 
-
+        ArrayList<Surfer> ec = new ArrayList<Surfer>();
+        ec = Servicerdv.getInstance().getcombo();
         ArrayList<Rendezvous> ev = new ArrayList<Rendezvous>();
         ev = Servicerdv.getInstance().getAllrdvs();
 
-        for (Rendezvous s : ev) {
+        for (Rendezvous s : ev ) {
 
             list.add(createRankWidget(s.getDate(),s.getMeet(),s, s.getDescription(),Integer.toString(s.getId())));
         }

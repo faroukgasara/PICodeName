@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/gui/addoffre.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/gui/Home.java</file>
-=======
             <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/UpdateEvent.java</file>
             <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/services/Servicerdv.java</file>
-            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/AddEvent.java</file>
             <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/services/ServiceEvent.java</file>
-            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/Home.java</file>
             <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/Listrdv.java</file>
-            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/ListEvents.java</file>
-            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/MyApplication.java</file>
-            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/entities/Rendezvous.java</file>
             <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/Addrdv.java</file>
             <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/Updaterdv.java</file>
->>>>>>> b46165eeb2ca92034c254cf0f340377547b896e8
         </group>
     </open-files>
 </project-private>
