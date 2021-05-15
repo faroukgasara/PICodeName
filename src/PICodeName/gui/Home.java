@@ -21,21 +21,46 @@ public class Home extends Form{
         setTitle("Home");
         setLayout(BoxLayout.y());
         add(new Label("Choose"));
+
+        Button btnListEvents = new Button("List Events");
+        btnListEvents.addActionListener(e-> new ListEventsClient(current).show());
+
         Button btnAddEvent = new Button("Add Event");
         Button btnAddoffre = new Button("Add Offre");
         Button btnListEvents = new Button("List Events");
+<<<<<<< HEAD
+        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
+        btnAddoffre.addActionListener(e-> new addoffre().show());
+        btnListEvents.addActionListener(e-> new ListEvents(current).show());
+        addAll(btnAddEvent,btnListEvents,btnAddoffre);
+        
+
+=======
+
+        Button btnAddFormation = new Button("Add Formation");
+>>>>>>> 8b6777de51e1c46a4b5d6fa9a9f27ebff8b7f224
         Button btnAddrdv = new Button("Add Rendez_vous");
         Button btnListrdv = new Button("List Rendez_vous");
         btnAddrdv.addActionListener(e-> new Addrdv(current).show());
         btnListrdv.addActionListener(e-> new Listrdv(current).show());
+<<<<<<< HEAD
+        addAll(btnAddEvent,btnListEvents,btnAddrdv,btnListrdv);
+
+=======
+        addAll(btnListEvents,btnAddrdv,btnListrdv);
+
+
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
         btnAddoffre.addActionListener(e-> new addoffre().show());
         btnListEvents.addActionListener(e-> new ListEvents(current).show());
+        btnAddFormation.addActionListener(e-> new addformation().show());
+        addAll(btnAddEvent,btnListEvents,btnAddFormation);
+
         
 
         
         addAll(btnAddEvent,btnListEvents,btnAddoffre,btnAddrdv,btnListrdv);
-
+>>>>>>> 8b6777de51e1c46a4b5d6fa9a9f27ebff8b7f224
         
         
     }
