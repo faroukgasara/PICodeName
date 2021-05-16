@@ -14,9 +14,14 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.messaging.Message;
 import com.codename1.ui.events.ActionListener;
 import java.io.ByteArrayInputStream;
-
+import javax.mail.Authenticator;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,8 +29,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import javax.mail.MessagingException;
 import org.json.JSONObject;
-
 
 /**
  *
@@ -53,6 +59,35 @@ public class ServiceEvent {
 
     //////////////////////////////////////////////////////////////////////
     public boolean addEvent(Evenement e) {
+        String to = "farouk.gassara@esprit.tn";
+        String host = "smtp.gmail.com";
+        final String mail = "handclasp1@gmail.com";
+        final String password = "handclasp11223344";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(mail, password);
+            }
+        });
+
+        try {
+            MimeMessage m = new MimeMessage(session);
+            m.setFrom(mail);
+            m.addRecipients(javax.mail.Message.RecipientType.TO, to);
+            m.setSubject("Participation");
+            m.setText("Participation Confirmed prix :");
+            Transport.send(m);
+
+        } catch (MessagingException ex) {
+        }
+
         JSONObject json = new JSONObject();
         try {
             ConnectionRequest post = new ConnectionRequest() {
@@ -85,6 +120,7 @@ public class ServiceEvent {
             String bodyToString = json.toString();
             NetworkManager.getInstance().addToQueueAndWait(post);
             Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(post.getResponseData()), "UTF-8"));
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -337,7 +373,7 @@ public class ServiceEvent {
                 e.setA5((int) A5);
                 float A6 = Float.parseFloat(obj.get("A6").toString());
                 e.setA6((int) A6);
-                
+
                 float B1 = Float.parseFloat(obj.get("B1").toString());
                 e.setB1((int) B1);
                 float B2 = Float.parseFloat(obj.get("B2").toString());
@@ -350,7 +386,7 @@ public class ServiceEvent {
                 e.setB5((int) B5);
                 float B6 = Float.parseFloat(obj.get("B6").toString());
                 e.setB6((int) B6);
-                
+
                 float C1 = Float.parseFloat(obj.get("C1").toString());
                 e.setC1((int) C1);
                 float C2 = Float.parseFloat(obj.get("C2").toString());
@@ -363,9 +399,6 @@ public class ServiceEvent {
                 e.setC5((int) C5);
                 float C6 = Float.parseFloat(obj.get("C6").toString());
                 e.setC6((int) C6);
-                
-                
-                
 
                 booking.add(e);
             }
@@ -391,9 +424,9 @@ public class ServiceEvent {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return booking;
     }
-    
+
     //////////////////////////////////////////////////////////////////////
-    public boolean addParticipant(ParticipantE e,int id) {
+    public boolean addParticipant(ParticipantE e, int id) {
         JSONObject json = new JSONObject();
         System.out.println(e.toString());
         try {
@@ -417,7 +450,7 @@ public class ServiceEvent {
             json.put("nom", e.getNom());
             json.put("seat", e.getSeat());
 
-            post.setUrl("http://127.0.0.1:8000/addpar/"+id);
+            post.setUrl("http://127.0.0.1:8000/addpar/" + id);
             post.setPost(true);
             post.setContentType("application/json");
             post.addArgument("body", json.toString());
