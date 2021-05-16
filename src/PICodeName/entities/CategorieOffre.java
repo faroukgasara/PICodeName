@@ -24,6 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "categorie_offre")
+
 @NamedQueries({
     @NamedQuery(name = "CategorieOffre.findAll", query = "SELECT c FROM CategorieOffre c")
     , @NamedQuery(name = "CategorieOffre.findById", query = "SELECT c FROM CategorieOffre c WHERE c.id = :id")
