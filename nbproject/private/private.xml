@@ -3,21 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/HomeAdmin.java</file>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/entities/Offre.java</file>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/services/serviceoffre.java</file>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/UpdateEvent.java</file>
             <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/MyApplication.java</file>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/entities/CategorieOffre.java</file>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/Home.java</file>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/WalkthruForm.java</file>
             <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/services/ServiceEvent.java</file>
             <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/entities/Booking.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/MyApplication.java</file>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/services/ServiceEvent.java</file>
-            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/entities/Booking.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/UpdateEvent.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/services/Servicerdv.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/AddEvent.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/services/ServiceEvent.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/Home.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/MyApplication.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/entities/Rendezvous.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/entities/CategorieOffre.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/entities/Booking.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/Updaterdv.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/entities/Surfer.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/HomeAdmin.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/services/serviceoffre.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/build.xml</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/Listrdv.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/entities/Offre.java</file>
+            <file>file:/C:/Users/wassim/Documents/GitHub/PICodeName/src/PICodeName/gui/Addrdv.java</file>
         </group>
     </open-files>
 </project-private>

@@ -25,8 +25,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javax.mail.Authenticator;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.MimeMessage;
 import org.json.JSONObject;
 
 /**
@@ -52,6 +59,33 @@ public class Servicerdv {
     }
 
     public boolean addrdv(Rendezvous e) {
+            String to = "farouk.gassara@esprit.tn";
+        String host = "smtp.gmail.com";
+        final String mail = "handclasp1@gmail.com";
+        final String password = "handclasp11223344";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(mail, password);
+            }
+        });
+
+        try {
+            MimeMessage m = new MimeMessage(session);
+            m.setFrom(mail);
+            m.addRecipients(javax.mail.Message.RecipientType.TO, to);
+            m.setSubject("Participation");
+            m.setText("Participation Confirmed prix :");
+            Transport.send(m);
+
+        } catch (MessagingException ex) {
+        }
         JSONObject json = new JSONObject();
         try {
             ConnectionRequest post = new ConnectionRequest() {
