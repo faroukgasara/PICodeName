@@ -7,23 +7,46 @@ package PICodeName.gui;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Form;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.components.ScaleImageLabel;
+import com.codename1.ui.Button;
+import com.codename1.ui.Display;
+import com.codename1.ui.FontImage;
+import com.codename1.ui.Form;
+import com.codename1.ui.Image;
+import com.codename1.ui.Label;
+import com.codename1.ui.Toolbar;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.layouts.LayeredLayout;
+import com.codename1.ui.plaf.Style;
+import com.codename1.ui.util.Resources;
 
 /**
  *
  * @author farou
  */
-public class HomeAdmin extends Form{
-    Form current; 
-    public HomeAdmin(){
-                current = this;
+public class HomeAdmin extends Form {
+
+    Form current;
+
+    public HomeAdmin() {
+        current = this;
         setTitle("Admin Home");
+
+        Toolbar tb = getToolbar();
+
+        tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this).show());
+        tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this).show());
+        tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this).show());
+        tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this).show());
         setLayout(BoxLayout.y());
-                Button btnAddEvent = new Button("Add Event");
+        Button btnAddEvent = new Button("Add Event");
         Button btnListEvents = new Button("List Events");
-        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-        btnListEvents.addActionListener(e-> new ListEvents(current).show());
-        addAll(btnAddEvent,btnListEvents);
+        btnAddEvent.addActionListener(e -> new AddEvent(current).show());
+        btnListEvents.addActionListener(e -> new ListEvents(current).show());
+        addAll(btnAddEvent, btnListEvents);
     }
-    
+
 }

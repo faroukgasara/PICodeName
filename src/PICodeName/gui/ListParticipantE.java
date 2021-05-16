@@ -8,6 +8,7 @@ package PICodeName.gui;
 import PICodeName.entities.Evenement;
 import PICodeName.entities.ParticipantE;
 import com.codename1.components.MultiButton;
+import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -15,6 +16,7 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.list.DefaultListModel;
 import java.util.ArrayList;
 import services.ServiceEvent;
 
@@ -62,13 +64,16 @@ public class ListParticipantE extends Form {
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);
         list.setDropTarget(true);
+        final DefaultListModel<String> options = new DefaultListModel<>();
 
 
 
         for (ParticipantE s : i) {
             list.add(createRankWidget(s.getNom(), s.getMail(), s, id));
+            options.addItem(s.getNom());
         }
-        addAll(list);
+        AutoCompleteTextField ac = new AutoCompleteTextField(options);
+        addAll(ac,list);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
 
     }

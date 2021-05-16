@@ -6,6 +6,7 @@
 package PICodeName.gui;
 
 import PICodeName.entities.Evenement;
+import com.codename1.notifications.LocalNotification;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
@@ -24,10 +25,12 @@ import services.ServiceEvent;
  * @author farou
  */
 public class AddEvent extends Form {
-Form current;
+
+    Form current;
+
     public AddEvent(Form previous) {
         current = new HomeAdmin();
-        
+
         setTitle("Add New Event");
         setLayout(BoxLayout.y());
         TextField tfTitle = new TextField("", "Event Title");
@@ -46,10 +49,21 @@ Form current;
                     Dialog.show("Alert", "Please Fill All fields", new Command("OK"));
                 } else {
                     try {
-                        Evenement e = new Evenement(date.getDate(),tfTitle.getText(), tfType.getText(),tfDescription.getText(), tfLocalisation.getText(), Integer.parseInt(tfIdsoc.getText()),0);
+                        Evenement e = new Evenement(date.getDate(), tfTitle.getText(), tfType.getText(), tfDescription.getText(), tfLocalisation.getText(), Integer.parseInt(tfIdsoc.getText()), 0);
                         if (ServiceEvent.getInstance().addEvent(e)) {
                             Dialog.show("Success", "Event accepted", new Command("OK"));
-                             new ListEvents(current).show();
+                            LocalNotification n = new LocalNotification();
+                            n.setId("demo-notification");
+                            n.setAlertBody("It's time to take a break and look at me");
+                            n.setAlertTitle("Break Time!");
+                            n.setAlertSound("/notification_sound_bells.mp3"); //file name must begin with notification_sound
+
+                            Display.getInstance().scheduleLocalNotification(
+                                    n,
+                                    System.currentTimeMillis() + 10 * 1000, // fire date/time
+                                    LocalNotification.REPEAT_MINUTE // Whether to repeat and what frequency
+                            );
+                            //new ListEvents(current).show();
                         } else {
                             Dialog.show("ERROR", "Server Error", new Command("OK"));
                         }
@@ -59,7 +73,7 @@ Form current;
                 }
             }
         });
-        addAll(tfTitle, tfType,tfDescription,tfLocalisation,tfIdsoc,date, btnValider);
+        addAll(tfTitle, tfType, tfDescription, tfLocalisation, tfIdsoc, date, btnValider);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
 
     }
