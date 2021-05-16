@@ -69,7 +69,7 @@ public class Home extends Form{
         btnAddoffre.addActionListener(e-> new addoffre().show());
         btnListEvents.addActionListener(e-> new ListEvents(current).show());
         btnAddFormation.addActionListener(e-> new addformation().show());
-        addAll(btnAddEvent,btnListEvents,btnAddFormation);
+        
         
 
         
