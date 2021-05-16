@@ -3,6 +3,7 @@ package PICodeName;
 
 import PICodeName.gui.Home;
 import PICodeName.gui.HomeAdmin;
+import PICodeName.gui.WalkthruForm;
 import static com.codename1.ui.CN.*;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
@@ -49,7 +50,7 @@ public class MyApplication {
     }
     
     public void start() {
-        new Home().show();
+        new WalkthruForm().show();
     }
 
     public void stop() {
