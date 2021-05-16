@@ -69,39 +69,14 @@ public class Listrdv extends Form {
         button.setUIID("SmallFontLabel");
         button.setTextLine2(desc);
         button.setTextLine3(d.toString());
-        return new SwipeableContainer(FlowLayout.encloseCenterMiddle(createStarRankSlider()),
+        return new SwipeableContainer(null,
                 button);
     }
 
-    private void initStarRankStyle(Style s, Image star) {
-        s.setBackgroundType(Style.BACKGROUND_IMAGE_TILE_BOTH);
-        s.setBorder(Border.createEmpty());
-        s.setBgImage(star);
-        s.setBgTransparency(0);
-    }
 
-    private Slider createStarRankSlider() {
-        Slider starRank = new Slider();
-        starRank.setEditable(true);
-        starRank.setMinValue(0);
-        starRank.setMaxValue(10);
-        Font fnt = Font.createTrueTypeFont("native:MainLight", "native:MainLight").
-                derive(Display.getInstance().convertToPixels(5, true), Font.STYLE_PLAIN);
-        Style s = new Style(0xffff33, 0, fnt, (byte) 0);
-        Image fullStar = FontImage.createMaterial(FontImage.MATERIAL_STAR, s).toImage();
-        s.setOpacity(100);
-        s.setFgColor(0);
-        Image emptyStar = FontImage.createMaterial(FontImage.MATERIAL_STAR, s).toImage();
-        initStarRankStyle(starRank.getSliderEmptySelectedStyle(), emptyStar);
-        initStarRankStyle(starRank.getSliderEmptyUnselectedStyle(), emptyStar);
-        initStarRankStyle(starRank.getSliderFullSelectedStyle(), fullStar);
-        initStarRankStyle(starRank.getSliderFullUnselectedStyle(), fullStar);
-        starRank.setPreferredSize(new Dimension(fullStar.getWidth() * 5, fullStar.getHeight()));
-        return starRank;
-    }
 
     public Listrdv(Form previous) {
-        setTitle("List Rendez_vous");
+        setTitle("Meeting List");
 
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);

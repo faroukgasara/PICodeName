@@ -114,7 +114,7 @@ public class Servicerdv {
             json.put("meet", e.getMeet());
             json.put("date", e.getDate());
             json.put("description", e.getDescription());
-            //json.put("mail_id", e.getMail_id());
+            //json.put("mail", e.getMail_id());
 
             post.setUrl("http://127.0.0.1:8000/webservicesupdaterdv/"+id);
             post.setPost(true);
@@ -142,6 +142,8 @@ public class Servicerdv {
                 Rendezvous e = new Rendezvous();
                 float id = Float.parseFloat(obj.get("id").toString());
                 e.setId((int) id);
+//                float mail = Float.parseFloat(obj.get("mail_id").toString());
+//                e.setMail_id((int) mail);
                 
                 e.setMeet(obj.get("meet").toString());
                 String sDate1=obj.get("date").toString();  
