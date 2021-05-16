@@ -45,12 +45,10 @@ public class Home extends Form{
         Button btnAddEvent = new Button("Add Event");
         Button btnAddoffre = new Button("Add Offre");
 
-        Button btnListEvents = new Button("List Events");
 
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
         btnAddoffre.addActionListener(e-> new addoffre().show());
         btnListEvents.addActionListener(e-> new ListEvents(current).show());
-        addAll(btnAddEvent,btnListEvents,btnAddoffre);
         
 
 
@@ -64,10 +62,7 @@ public class Home extends Form{
         btnAddoffre.addActionListener(e-> new addoffre().show());
         btnListEvents.addActionListener(e-> new ListEventsClient(current).show());
 
-        addAll(btnAddEvent,btnListEvents,btnAddrdv,btnListrdv);
 
-
-        addAll(btnListEvents,btnAddrdv,btnListrdv);
 
 
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
