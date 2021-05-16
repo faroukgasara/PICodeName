@@ -5,16 +5,13 @@
  */
 package services;
 
-import PICodeName.entities.Rendezvous;
-import PICodeName.entities.Surfer;
+import PICodeName.entities.Evenement;
+import PICodeName.entities.Offre;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
-import com.codename1.l10n.ParseException;
-import com.codename1.l10n.SimpleDateFormat;
-import com.codename1.ui.ComboBox;
 import com.codename1.ui.events.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,78 +19,33 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.json.JSONObject;
+
 
 /**
  *
- * @author wassim
+ * @author Lenovo
  */
-public class Servicerdv {
-    public ArrayList<Rendezvous> events;
-    public ArrayList<Surfer> events1;
-    public static Servicerdv instance = null;
+public class serviceoffre {
+   
+    public ArrayList<Offre> offres;
+    public static serviceoffre instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
 
-    private Servicerdv() {
+    private serviceoffre () {
         req = new ConnectionRequest();
     }
 
-    public static Servicerdv getInstance() {
+    public static serviceoffre getInstance() {
         if (instance == null) {
-            instance = new Servicerdv();
+            instance = new serviceoffre();
         }
         return instance;
     }
 
-    public boolean addrdv(Rendezvous e) {
-        JSONObject json = new JSONObject();
-        try {
-            ConnectionRequest post = new ConnectionRequest() {
-                @Override
-                protected void buildRequestBody(OutputStream os) throws IOException {
-                    os.write(json.toString().getBytes("UTF-8"));
-                }
-
-                @Override
-                protected void readResponse(InputStream input) throws IOException {
-                }
-
-                @Override
-                protected void postResponse() {
-                }
-            };
-            /*json.put("title", e.getTitle());
-            json.put("type", e.getType());
-            json.put("description", e.getDescription());
-            json.put("localitation", e.getLocalitation());
-            json.put("id_societe", 1);*/
-
-            json.put("meet", e.getMeet());
-            json.put("date", e.getDate());
-            json.put("description", e.getDescription());
-            json.put("mail_id", e.getMail_id());
-           
-
-            post.setUrl("http://127.0.0.1:8000/webservicesaddrdv");
-            post.setPost(true);
-            post.setContentType("application/json");
-            post.addArgument("body", json.toString());
-            String bodyToString = json.toString();
-            NetworkManager.getInstance().addToQueueAndWait(post);
-            Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(post.getResponseData()), "UTF-8"));
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());;
-        }
-        return true;
-
-    }
-     public boolean updaterdv(Rendezvous e,int id) {
+    public boolean addoffre(Offre  e) {
         JSONObject json = new JSONObject();
         try {
             ConnectionRequest post = new ConnectionRequest() {
@@ -111,12 +63,15 @@ public class Servicerdv {
                 }
             };
 
-            json.put("meet", e.getMeet());
-            json.put("date", e.getDate());
+            
+            json.put("specialite", e.getSpecialite());
+            json.put("typecategorie", e.getTypecategorieId());
             json.put("description", e.getDescription());
-            //json.put("mail_id", e.getMail_id());
+            json.put("localitation", e.getLocalisation());
+            json.put("offre nb_dem", e.getNbDem());
+            json.put("Viewed", 0);
 
-            post.setUrl("http://127.0.0.1:8000/webservicesupdaterdv/"+id);
+            post.setUrl("http://127.0.0.1:8000/webserviceseventaddevent");
             post.setPost(true);
             post.setContentType("application/json");
             post.addArgument("body", json.toString());
@@ -124,104 +79,97 @@ public class Servicerdv {
             NetworkManager.getInstance().addToQueueAndWait(post);
             Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(post.getResponseData()), "UTF-8"));
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());;
+            ex.printStackTrace();
         }
         return true;
 
     }
 
-    public ArrayList<Rendezvous> parserdv(String jsonText) throws Exception  {
+    //////////////////////////////////////////////////////////////////////
+    public boolean updateoffre (Offre e,int id) {
+        JSONObject json = new JSONObject();
         try {
-            events = new ArrayList<>();
+            ConnectionRequest post = new ConnectionRequest() {
+                @Override
+                protected void buildRequestBody(OutputStream os) throws IOException {
+                    os.write(json.toString().getBytes("UTF-8"));
+                }
+
+                @Override
+                protected void readResponse(InputStream input) throws IOException {
+                }
+
+                @Override
+                protected void postResponse() {
+                }
+            };
+
+           json.put("specialite", e.getSpecialite());
+            json.put("typecategorie", e.getTypecategorieId());
+            json.put("description", e.getDescription());
+            json.put("localitation", e.getLocalisation());
+            json.put("offre nb_dem", e.getNbDem());
+
+            post.setUrl("http://127.0.0.1:8000/webserviceseventupdateevent/"+id);
+            post.setPost(true);
+            post.setContentType("application/json");
+            post.addArgument("body", json.toString());
+            String bodyToString = json.toString();
+            NetworkManager.getInstance().addToQueueAndWait(post);
+            Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(post.getResponseData()), "UTF-8"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return true;
+
+    }
+     public ArrayList<Offre> parseoffre (String jsonText) {
+        try {
+            offres= new ArrayList<>();
             JSONParser j = new JSONParser();
 
             Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
 
             for (Map<String, Object> obj : list) {
-                Rendezvous e = new Rendezvous();
+                Offre e = new Offre();
                 float id = Float.parseFloat(obj.get("id").toString());
                 e.setId((int) id);
-                
-                e.setMeet(obj.get("meet").toString());
-                String sDate1=obj.get("date").toString();  
-                Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+00:00").parse(sDate1);
-                e.setDate(date);
+                e.setSpecialite(obj.get("specialite").toString());
                 // e.setStatus(((int)Float.parseFloat(obj.get("status").toString())));
-                e.setDescription(obj.get("description").toString());
-                events.add(e);
-            }
-
-        } catch (IOException ex) {
-            System.out.println("services.Servicerdv.parserdv()");
-
-        }
-        return events;
-    }
-     public ArrayList<Surfer> parsecombo(String jsonText) throws Exception  {
-        try {
-            events1 = new ArrayList<>();
-            JSONParser j = new JSONParser();
-
-            Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-            List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
-
-            for (Map<String, Object> obj : list) {
-                Surfer e = new Surfer();
-                float id = Float.parseFloat(obj.get("id").toString());
-                e.setId((int) id);
-                e.setEmailadress(obj.get("emailadress").toString());
                 
-                events1.add(e);
+                e.setDescription(obj.get("description").toString());
+                e.setLocalisation(obj.get("localitation").toString());
+                offres.add(e);
             }
 
         } catch (IOException ex) {
-            System.out.println("services.Servicerdv.parsecombo()");
+            System.out.println("services.ServiceEvent.parseEvents()");
 
         }
-        return events1;
-    }
-     public ArrayList<Surfer> getcombo() {
-        String url = "http://127.0.0.1:8000/webservicescombo";
-        req.setUrl(url);
-        req.setPost(false);
-        req.addResponseListener(new ActionListener<NetworkEvent>() {
-            @Override
-            public void actionPerformed(NetworkEvent evt) {
-                try {
-                    events1 = parsecombo(new String(req.getResponseData()));
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());;
-                }
-                req.removeResponseListener(this);
-            }
-        });
-        NetworkManager.getInstance().addToQueueAndWait(req);
-        System.out.println(events1.toString());
-        return events1;
+        return offres;
     }
 
-    public ArrayList<Rendezvous> getAllrdvs() {
-        String url = "http://127.0.0.1:8000/webservicesrdvs";
+    //////////////////////////////////////////////////////////////////////
+    public ArrayList<Offre> getAlloffre() {
+        String url = "http://127.0.0.1:8000/webserviceseventevents";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
-                try {
-                    events = parserdv(new String(req.getResponseData()));
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());;
-                }
+                offres = parseoffre(new String(req.getResponseData()));
                 req.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        System.out.println(events.toString());
-        return events;
+        System.out.println(offres.toString());
+        return offres;
     }
-    public boolean deleterdv(int id) {
-        String url = "http://127.0.0.1:8000/webservicesdeleterdv/" + id;
+
+    //////////////////////////////////////////////////////////////////////
+    public boolean deleteoffre(int id) {
+        String url = "http://127.0.0.1:8000/webserviceseventdeleteevent/" + id;
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -231,7 +179,10 @@ public class Servicerdv {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        System.out.println(events.toString());
+        System.out.println(offres.toString());
         return true;
     }
+
 }
+
+

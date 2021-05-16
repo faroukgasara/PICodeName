@@ -50,7 +50,6 @@ public class ListEvents extends Form {
     private TextField tfNom;
     private Resources theme;
     Form current;
-
     private Button clear;
     private Button submit;
     //Image icon = FontImage.createMaterial(FontImage.MATERIAL_UPDATE, "Button", 3.0f);
