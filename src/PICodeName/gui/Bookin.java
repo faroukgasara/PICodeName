@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import services.ServiceEvent;
 import PICodeName.entities.Booking;
 import PICodeName.entities.ParticipantE;
-import PICodeName.entities.ParticipantE_;
+
 import com.codename1.ui.Button;
 import static com.codename1.ui.CN.CENTER;
 import com.codename1.ui.ComboBox;
