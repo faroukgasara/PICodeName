@@ -24,7 +24,9 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Slider;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.animations.CommonTransitions;
+import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.geom.Rectangle;
@@ -70,7 +72,7 @@ public class ListEvents extends Form {
         );
 
         button.addLongPressListener(e
-                -> new ListEvents(current).show()
+                -> new ListEvents(current, ServiceEvent.getInstance().getAllEvents()).show()
         );
 
         button.addActionListener(e //-> new ListParticipantE(Integer.parseInt(id),current).show()
@@ -108,32 +110,61 @@ public class ListEvents extends Form {
         initStarRankStyle(starRank.getSliderFullSelectedStyle(), fullStar);
         initStarRankStyle(starRank.getSliderFullUnselectedStyle(), fullStar);
         starRank.setPreferredSize(new Dimension(fullStar.getWidth() * 1, fullStar.getHeight()));
-        
-        starRank.addActionListener(e -> new ListParticipantE(Integer.parseInt(id),current).show()
-               
+
+        starRank.addActionListener(e -> new ListParticipantE(Integer.parseInt(id), current).show()
         );
         return starRank;
     }
 
-    public ListEvents(Form previous) {
-        setTitle("List Events");
-        current = this;
+    Button btnrecherche = new Button("Search");
+    final DefaultListModel<String> options = new DefaultListModel<>();
+    AutoCompleteTextField ac = new AutoCompleteTextField(options);
+    Form c;
+
+    public ListEvents(Form previous, ArrayList<Evenement> ev) {
+
+        Toolbar tb = getToolbar();
+
+        tb.addMaterialCommandToOverflowMenu("Stat Age", FontImage.MATERIAL_STACKED_LINE_CHART, e -> new Stat(current).show());
+        tb.addMaterialCommandToOverflowMenu("Stat", FontImage.MATERIAL_STACKED_LINE_CHART, e -> new StatEvent(current).show());
+        c = new HomeAdmin();
+        Form p = this;
+        setTitle("List Events Admin");
+        current = new Home();
+        setLayout(BoxLayout.y());
+
+        Form f = new Form(BoxLayout.y());
 
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);
         list.setDropTarget(true);
-
-        ArrayList<Evenement> ev = new ArrayList<Evenement>();
-        ev = ServiceEvent.getInstance().getAllEvents();
-        final DefaultListModel<String> options = new DefaultListModel<>();
-
         for (Evenement s : ev) {
             list.add(createRankWidget(s.getTitle(), s.getType(), s, Integer.toString(s.getId())));
             options.addItem(s.getTitle());
         }
-        AutoCompleteTextField ac = new AutoCompleteTextField(options);
-        addAll(ac,list);
-        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
+
+        f.add(list);
+
+        btnrecherche.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                ListEvent();
+
+            }
+
+        });
+
+        ArrayList<Evenement> a = new ArrayList<Evenement>();
+        a = ServiceEvent.getInstance().getAllEvents();
+        for (Evenement s : a) {
+
+            options.addItem(s.getTitle());
+        }
+
+        addAll(ac, btnrecherche, f);
+
+        getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> c.show());
 
         FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
         RoundBorder rb = (RoundBorder) fab.getUnselectedStyle().getBorder();
@@ -142,6 +173,29 @@ public class ListEvents extends Form {
         fab.addActionListener(e -> {
             new AddEvent(current).show();
         });
+
+    }
+
+    public ArrayList<Evenement> ListEvent() {
+        ArrayList<Evenement> ev = new ArrayList<Evenement>();
+
+        if (ac.getText().length() == 0) {
+            ev = ServiceEvent.getInstance().getAllEvents();
+            new ListEvents(c, ev).show();
+
+            return ev;
+
+        } else {
+            try {
+                ev = ServiceEvent.getInstance().search(ac.getText());
+                new ListEvents(c, ev).show();
+                return ev;
+
+            } catch (Exception ex) {
+                Dialog.show("ERROR", "ERROR", new Command("OK"));
+            }
+        }
+        return ev;
 
     }
 

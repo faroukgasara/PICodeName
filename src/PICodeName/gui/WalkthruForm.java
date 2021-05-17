@@ -112,43 +112,43 @@ public class WalkthruForm extends com.codename1.ui.Form {
         bg.add(gui_tab3);
         gui_tab1.setSelected(true);
         
-        Image bla = resourceObjectInstance.getImage("bla.jpg");
-        Image griffith = resourceObjectInstance.getImage("griffith.jpg");
-        Image learn = resourceObjectInstance.getImage("learn-codename-one.jpg");
+        Image bla = resourceObjectInstance.getImage("rdv.jpg");
+        Image griffith = resourceObjectInstance.getImage("event.jpg");
+        Image learn = resourceObjectInstance.getImage("offre.jpg");
         
         gui_tab1Root.setLayout(new BorderLayout());
         gui_tab2Root.setLayout(new BorderLayout());
         gui_tab3Root.setLayout(new BorderLayout());
         
-        String line1 =  "The rule of thirds states that an image is\nmost pleasing when its subjects or\nregions are ...";
+        String line1 =  "A company can set up an appointment with an employee and send the meet by email to spend it online";
         if(!Display.getInstance().isTablet()) {
             line1 = line1.replace('\n', ' ');
         }
 
-        String line2 =  "The second page of a wizard is important\nbut nothing beats the third page ...";
+        String line2 =  "The concept of corporate event encompasses company dinners, meetings, conferences, symposiums and even recreational activities";
         if(!Display.getInstance().isTablet()) {
             line2 = line2.replace('\n', ' ');
         }
 
-        String line3 =  "This is all made possible thanks to\nCodename One which makes it\nwork on all OS's ...";
+        String line3 =  "Active conduct with a view to obtaining or regaining employment./La formation consiste à enseigner à un employé les connaissances et les compétences nécessaires . La formation professionnelle est généralement adoptée pour des personnes exerçant déjà une activité professionnelle, et souhaitant accroître leurs compétences.";
         if(!Display.getInstance().isTablet()) {
             line3 = line3.replace('\n', ' ');
         }
         
         Container content1 = BoxLayout.encloseY(
-                new Label("Rule of thirds", "WelcomeTitle"),
+                new Label("Rdv", "WelcomeTitle"),
                 new Label(resourceObjectInstance.getImage("welcome-separator.png"), "WelcomeTitle"),
                 new SpanLabel(line1, "WelcomeBody")
         );
 
         Container content2 = BoxLayout.encloseY(
-                new Label("Rule of Page 2", "WelcomeTitle"),
+                new Label("Event", "WelcomeTitle"),
                 new Label(resourceObjectInstance.getImage("welcome-separator.png"), "WelcomeTitle"),
                 new SpanLabel(line2, "WelcomeBody")
         );
 
         Container content3 = BoxLayout.encloseY(
-                new Label("Codename One", "WelcomeTitle"),
+                new Label("Offer & Training ", "WelcomeTitle"),
                 new Label(resourceObjectInstance.getImage("welcome-separator.png"), "WelcomeTitle"),
                 new SpanLabel(line3, "WelcomeBody")
         );
@@ -323,7 +323,7 @@ public class WalkthruForm extends com.codename1.ui.Form {
     }
 
     public void onButton_1ActionEvent(com.codename1.ui.events.ActionEvent ev) {
-        new HomeAdmin().show();
+        new Home().show();
     }
 
 }

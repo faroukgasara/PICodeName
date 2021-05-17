@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -41,6 +42,7 @@ public class ServiceEvent {
 
     public ArrayList<Evenement> events;
     public ArrayList<ParticipantE> participant;
+    public ArrayList<Integer> statage;
     public ArrayList<Booking> booking;
     public static ServiceEvent instance = null;
     public boolean resultOK;
@@ -59,34 +61,6 @@ public class ServiceEvent {
 
     //////////////////////////////////////////////////////////////////////
     public boolean addEvent(Evenement e) {
-        String to = "farouk.gassara@esprit.tn";
-        String host = "smtp.gmail.com";
-        final String mail = "handclasp1@gmail.com";
-        final String password = "handclasp11223344";
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
-
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(mail, password);
-            }
-        });
-
-        try {
-            MimeMessage m = new MimeMessage(session);
-            m.setFrom(mail);
-            m.addRecipients(javax.mail.Message.RecipientType.TO, to);
-            m.setSubject("Participation");
-            m.setText("Participation Confirmed prix :");
-            Transport.send(m);
-
-        } catch (MessagingException ex) {
-        }
 
         JSONObject json = new JSONObject();
         try {
@@ -231,6 +205,9 @@ public class ServiceEvent {
             e.setType(EventsListJson.get("type").toString());
             e.setDescription(EventsListJson.get("description").toString());
             e.setLocalitation(EventsListJson.get("localitation").toString());
+
+            float viewed = Float.parseFloat(EventsListJson.get("Viewed").toString());
+            e.setViewed((int) viewed);
             events.add(e);
 
         } catch (IOException ex) {
@@ -428,7 +405,34 @@ public class ServiceEvent {
     //////////////////////////////////////////////////////////////////////
     public boolean addParticipant(ParticipantE e, int id) {
         JSONObject json = new JSONObject();
-        System.out.println(e.toString());
+        String to = e.getMail();
+        String host = "smtp.gmail.com";
+        final String mail = "handclasp1@gmail.com";
+        final String password = "handclasp11223344";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(mail, password);
+            }
+        });
+
+        try {
+            MimeMessage m = new MimeMessage(session);
+            m.setFrom(mail);
+            m.addRecipients(javax.mail.Message.RecipientType.TO, to);
+            m.setSubject("Participation");
+            m.setText("Participation Confirmed Mr/Mr:" + e.getNom() + " seat num" + e.getSeat());
+            Transport.send(m);
+
+        } catch (MessagingException ex) {
+        }
         try {
             ConnectionRequest post = new ConnectionRequest() {
                 @Override
@@ -462,6 +466,108 @@ public class ServiceEvent {
         }
         return true;
 
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    public ArrayList<Evenement> search(String title) {
+        String url = "http://127.0.0.1:8000/webserviceseventeventssearch/" + title;
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                events = parseEvents(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return events;
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    public ArrayList<Integer> parsestatage(String jsonText) {
+        ArrayList<Integer> e = new ArrayList<Integer>();
+        try {
+            statage = new ArrayList<>();
+            JSONParser j = new JSONParser();
+
+            Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
+            
+            for (Map<String, Object> obj : list) {
+
+                float age = Float.parseFloat(obj.get("age").toString());
+                e.add((int) age);
+
+                float nbage = Float.parseFloat(obj.get("nbage").toString());
+                e.add((int) nbage);
+
+            }
+
+
+        } catch (IOException ex) {
+            System.out.println("services.ServiceEvent.parseEvents()");
+
+        }
+        return e;
+    }
+
+    public ArrayList<Integer> getstatage() {
+        String url = "http://127.0.0.1:8000/statage";
+        req.setUrl(url);
+        req.setPost(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                statage = parsestatage(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return statage;
+    }
+    
+        //////////////////////////////////////////////////////////////////////
+    public ArrayList<Integer> parsestat(String jsonText) {
+        ArrayList<Integer> e = new ArrayList<Integer>();
+        try {
+            statage = new ArrayList<>();
+            JSONParser j = new JSONParser();
+
+            Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
+            
+            for (Map<String, Object> obj : list) {
+
+                float age = Float.parseFloat(obj.get("Mois").toString());
+                e.add((int) age);
+
+                float nbage = Float.parseFloat(obj.get("NB").toString());
+                e.add((int) nbage);
+
+            }
+
+
+        } catch (IOException ex) {
+            System.out.println("services.ServiceEvent.parseEvents()");
+
+        }
+        return e;
+    }
+
+    public ArrayList<Integer> getstat() {
+        String url = "http://127.0.0.1:8000/stat";
+        req.setUrl(url);
+        req.setPost(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                statage = parsestat(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return statage;
     }
 
 }

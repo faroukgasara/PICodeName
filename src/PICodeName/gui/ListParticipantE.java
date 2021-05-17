@@ -32,7 +32,7 @@ public class ListParticipantE extends Form {
         MultiButton button = new MultiButton(title);
         //button.setIcon(icon);
         c = new Home();
-        current =new  ListEvents(c);
+        current =new  ListEvents(c,ServiceEvent.getInstance().getAllEvents());
 
         //button.setTextLine1(id);
         //button.setPressedIcon(icon);

@@ -52,18 +52,8 @@ public class AddEvent extends Form {
                         Evenement e = new Evenement(date.getDate(), tfTitle.getText(), tfType.getText(), tfDescription.getText(), tfLocalisation.getText(), Integer.parseInt(tfIdsoc.getText()), 0);
                         if (ServiceEvent.getInstance().addEvent(e)) {
                             Dialog.show("Success", "Event accepted", new Command("OK"));
-                            LocalNotification n = new LocalNotification();
-                            n.setId("demo-notification");
-                            n.setAlertBody("It's time to take a break and look at me");
-                            n.setAlertTitle("Break Time!");
-                            n.setAlertSound("/notification_sound_bells.mp3"); //file name must begin with notification_sound
-
-                            Display.getInstance().scheduleLocalNotification(
-                                    n,
-                                    System.currentTimeMillis() + 10 * 1000, // fire date/time
-                                    LocalNotification.REPEAT_MINUTE // Whether to repeat and what frequency
-                            );
-                            //new ListEvents(current).show();
+                            new HomeAdmin().show();
+                            
                         } else {
                             Dialog.show("ERROR", "Server Error", new Command("OK"));
                         }

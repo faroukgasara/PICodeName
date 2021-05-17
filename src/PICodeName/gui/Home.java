@@ -5,10 +5,15 @@
  */
 package PICodeName.gui;
 
+import PICodeName.entities.Evenement;
 import com.codename1.ui.Button;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
+import java.util.ArrayList;
+import services.ServiceEvent;
 
 /**
  *
@@ -21,16 +26,17 @@ public class Home extends Form{
         setTitle("Home");
         setLayout(BoxLayout.y());
         add(new Label("Choose"));
+        Toolbar tb = getToolbar();
+        tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this,ServiceEvent.getInstance().getAllEvents()).show());
 
         Button btnListEvents = new Button("List Events");
-        btnListEvents.addActionListener(e-> new ListEventsClient(current).show());
+        btnListEvents.addActionListener(e-> new ListEventsClient(current,ServiceEvent.getInstance().getAllEvents()).show());
 
         Button btnAddEvent = new Button("Add Event");
         Button btnAddoffre = new Button("Add Offre");
         
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
         btnAddoffre.addActionListener(e-> new addoffre().show());
-        btnListEvents.addActionListener(e-> new ListEvents(current).show());
         
         
 
@@ -48,7 +54,6 @@ public class Home extends Form{
 
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
         btnAddoffre.addActionListener(e-> new addoffre().show());
-        btnListEvents.addActionListener(e-> new ListEvents(current).show());
         btnAddFormation.addActionListener(e-> new addformation().show());
 
 

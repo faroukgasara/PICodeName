@@ -119,7 +119,7 @@ public class Bookin extends Form {
                         System.out.println(e.toString());
                         if (ServiceEvent.getInstance().addParticipant(e,id)) {
                             Dialog.show("Success", "Participation accepted", new Command("OK"));
-                             new ListEventsClient(current).show();
+                             new ListEventsClient(current,ServiceEvent.getInstance().getAllEvents()).show();
                         } else {
                             Dialog.show("ERROR", "Server Error", new Command("OK"));
                         }
