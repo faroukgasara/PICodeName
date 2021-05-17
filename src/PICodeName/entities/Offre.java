@@ -18,12 +18,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+
 /**
  *
  * @author Lenovo
  */
 @Entity
 @Table(name = "offre")
+
 @NamedQueries({
     @NamedQuery(name = "Offre.findAll", query = "SELECT o FROM Offre o")
     , @NamedQuery(name = "Offre.findById", query = "SELECT o FROM Offre o WHERE o.id = :id")

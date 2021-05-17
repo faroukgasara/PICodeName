@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 /**
  *
  * @author Lenovo
@@ -71,7 +72,7 @@ public class CategorieOffre implements Serializable {
         this.type = type;
     }
 
-    
+  
     public Collection<Offre> getOffreCollection() {
         return offreCollection;
     }

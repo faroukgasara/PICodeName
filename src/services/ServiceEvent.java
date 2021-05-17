@@ -5,23 +5,16 @@
  */
 package services;
 
-import PICodeName.entities.Booking;
 import PICodeName.entities.Evenement;
-import PICodeName.entities.ParticipantE;
 import PICodeName.utils.Statics;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
-import com.codename1.messaging.Message;
 import com.codename1.ui.events.ActionListener;
 import java.io.ByteArrayInputStream;
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.MimeMessage;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,9 +23,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-import javax.mail.MessagingException;
 import org.json.JSONObject;
+
 
 /**
  *
@@ -41,6 +33,7 @@ import org.json.JSONObject;
 public class ServiceEvent {
 
     public ArrayList<Evenement> events;
+
     public ArrayList<ParticipantE> participant;
     public ArrayList<Integer> statage;
     public ArrayList<Booking> booking;
@@ -59,8 +52,8 @@ public class ServiceEvent {
         return instance;
     }
 
-    //////////////////////////////////////////////////////////////////////
     public boolean addEvent(Evenement e) {
+
 
         JSONObject json = new JSONObject();
         try {
@@ -94,7 +87,6 @@ public class ServiceEvent {
             String bodyToString = json.toString();
             NetworkManager.getInstance().addToQueueAndWait(post);
             Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(post.getResponseData()), "UTF-8"));
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -103,7 +95,7 @@ public class ServiceEvent {
     }
 
     //////////////////////////////////////////////////////////////////////
-    public boolean updateEvent(Evenement e, int id) {
+    public boolean updateEvent(Evenement e,int id) {
         JSONObject json = new JSONObject();
         try {
             ConnectionRequest post = new ConnectionRequest() {
@@ -127,7 +119,7 @@ public class ServiceEvent {
             json.put("description", e.getDescription());
             json.put("localitation", e.getLocalitation());
 
-            post.setUrl("http://127.0.0.1:8000/webserviceseventupdateevent/" + id);
+            post.setUrl("http://127.0.0.1:8000/webserviceseventupdateevent/"+id);
             post.setPost(true);
             post.setContentType("application/json");
             post.addArgument("body", json.toString());
@@ -182,6 +174,7 @@ public class ServiceEvent {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
+
         return events;
     }
 
@@ -230,6 +223,8 @@ public class ServiceEvent {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
+
+        System.out.println(events.toString());
         return events;
     }
 
@@ -245,24 +240,10 @@ public class ServiceEvent {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        return true;
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    public boolean Viewed(int id) {
-        String url = "http://127.0.0.1:8000/webserviceseventviewed/" + id;
-        req.setUrl(url);
-        req.setPost(false);
-        req.addResponseListener(new ActionListener<NetworkEvent>() {
-            @Override
-            public void actionPerformed(NetworkEvent evt) {
-                req.removeResponseListener(this);
-            }
-        });
-        NetworkManager.getInstance().addToQueueAndWait(req);
         System.out.println(events.toString());
         return true;
     }
+
 
     //////////////////////////////////////////////////////////////////////
     public ArrayList<ParticipantE> parseParticipant(String jsonText) {
