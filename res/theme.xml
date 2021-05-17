@@ -57,8 +57,8 @@
             <entry key="Calendar.Thursday" value="Thu" />
             <entry key="ok" value="OK" />
             <entry key="Calendar.Saturday" value="Sat" />
-            <entry key="select" value="Select" />
             <entry key="Calendar.Friday" value="Fri" />
+            <entry key="select" value="Select" />
             <entry key="edit" value="Edit" />
             <entry key="Calendar.Monday" value="Mon" />
             <entry key="cancel" value="Cancel" />
@@ -76,7 +76,7 @@
     <theme name="Theme">
         <val key="@ComponentGroupBool" value="true" />
         <val key="@includeNativeBool" value="true" />
-        <gradient key="Button.bgGradient" color1="6711039" color2="255" posX="0.5" posY="0.5" radius="1.0" />
+        <gradient key="Button.bgGradient" color1="14900569" color2="15975582" posX="0.5" posY="0.5" radius="1.0" />
         <val key="Button.bgType" value="7" />
         <border key="Button.border" type="empty" />
         <val key="Button.fgColor" value="ffffff" />
@@ -562,7 +562,7 @@
         <font key="TitleCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.5" />
         <val key="TitleCommand.padUnit" value="2,2,2,2" />
         <val key="TitleCommand.padding" value="1,1,1,1" />
-        <gradient key="Toolbar.bgGradient" color1="6711039" color2="255" posX="0.5" posY="0.5" radius="1.0" />
+        <gradient key="Toolbar.bgGradient" color1="102" color2="102" posX="0.5" posY="0.5" radius="1.0" />
         <val key="Toolbar.bgType" value="7" />
         <border key="Toolbar.border" type="empty" />
         <val key="Welcome.bgImage" value="welcome-background.jpg" />

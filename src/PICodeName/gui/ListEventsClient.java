@@ -7,6 +7,7 @@ package PICodeName.gui;
 
 import PICodeName.entities.Evenement;
 import com.codename1.components.MultiButton;
+import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Container;
@@ -22,6 +23,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
@@ -59,10 +61,9 @@ public class ListEventsClient extends Form {
         );
 
         button.addLongPressListener(e
-                 -> new Bookin(current, Integer.parseInt(id)).show()
+                -> new Bookin(current, Integer.parseInt(id)).show()
         );
 
-        
         button.setTextLine2(type);
         button.setName("Label_3_3");
         button.setUIID("SmallFontLabel");
@@ -109,10 +110,16 @@ public class ListEventsClient extends Form {
         ArrayList<Evenement> ev = new ArrayList<Evenement>();
         ev = ServiceEvent.getInstance().getAllEvents();
 
+        
+        final DefaultListModel<String> options = new DefaultListModel<>();
+
         for (Evenement s : ev) {
             list.add(createRankWidget(s.getTitle(), s.getType(), s, Integer.toString(s.getId())));
+            options.addItem(s.getTitle());
         }
-        addAll(list);
+        
+        AutoCompleteTextField ac = new AutoCompleteTextField(options);
+        addAll(ac, list);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
 
     }

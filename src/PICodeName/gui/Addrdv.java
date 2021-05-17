@@ -27,7 +27,7 @@ import services.Servicerdv;
  * @author wassim
  */
 public class Addrdv extends Form {
-
+Form current;
     public Addrdv(Form previous) {
         
         setTitle("Add New Rendez_vous");
@@ -39,7 +39,7 @@ public class Addrdv extends Form {
         ev = Servicerdv.getInstance().getcombo();
 
         for (Surfer s : ev) {
-cb.addItem(s.getId());
+cb.addItem(s.getEmailadress());
 
         }
         //TextField tfMail = new TextField("", "Mail_id");
@@ -47,7 +47,6 @@ cb.addItem(s.getId());
         Picker date = new Picker();
         date.setType(Display.PICKER_TYPE_DATE_AND_TIME);
         Button btnValider = new Button("Add Rendez_vous");
-
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -55,10 +54,11 @@ cb.addItem(s.getId());
                     Dialog.show("Alert", "Please Fill All fields", new Command("OK"));
                 } else {
                     try {
-                        Rendezvous e = new Rendezvous(date.getDate(),tfMeet.getText(), tfDescription.getText(),Integer.parseInt(cb.getSelectedItem().toString()));
+                        Rendezvous e = new Rendezvous(date.getDate(),tfMeet.getText(), tfDescription.getText(),cb.getSelectedIndex()+1);
                         if (Servicerdv.getInstance().addrdv(e)) {
-                            Dialog.show("Success", "Connection accepted", new Command("OK"));
-
+                            Dialog.show("Success", "RDV added", new Command("OK"));
+                           new Listrdv(current).show();
+                            System.out.println(cb.getSelectedIndex()+1);
                         } else {
                             Dialog.show("ERROR", "Server Error", new Command("OK"));
                         }
