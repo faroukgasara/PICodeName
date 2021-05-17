@@ -323,7 +323,7 @@ public class WalkthruForm extends com.codename1.ui.Form {
     }
 
     public void onButton_1ActionEvent(com.codename1.ui.events.ActionEvent ev) {
-        new Home().show();
+        new HomeAdmin().show();
     }
 
 }
