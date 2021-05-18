@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PICodeName.utils;
+package user;
 
 /**
  *
- * @author farou
+ * @author OMEN
  */
-public class Statics {
-    
-    public static final String BASE_URL="http://127.0.0.1:8000";//hathi url mt3 symfony 
+public class java {
     
 }
