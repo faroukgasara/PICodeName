@@ -80,8 +80,8 @@ public class Evenement implements Serializable {
         this.type = type;
     }
 
-    public Evenement(String title, String type, String description, String localitation, int idSociete,int viewed) {
-
+    public Evenement(Date dateAt, String title, String type, String description, String localitation, int idSociete, int viewed) {
+        this.dateAt = dateAt;
         this.title = title;
         this.type = type;
         this.description = description;
@@ -194,7 +194,7 @@ public class Evenement implements Serializable {
 
     @Override
     public String toString() {
-        return "PICodeName.entities.Evenement[ id=" + id + " ]";
+        return "EventEntity{" + "id=" + id + ", date_at=, title=" + title + ", type=" + type + ", description=" + description + ", localitation=" + localitation + ", id_societe=viewed=" + viewed + '}';
     }
 
 }

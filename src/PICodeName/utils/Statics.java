@@ -10,7 +10,11 @@ package PICodeName.utils;
  * @author farou
  */
 public class Statics {
+<<<<<<< HEAD
     
     public static final String BASE_URL="http://127.0.0.1:8000";//hathi url mt3 symfony 
+=======
+    public static final String BASE_URL="http://51.89.167.87:51100";
+>>>>>>> c12e508fbf33c72f79e5c2f9bad831dcce6c6ad8
     
 }

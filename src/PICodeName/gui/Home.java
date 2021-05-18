@@ -5,20 +5,32 @@
  */
 package PICodeName.gui;
 
+<<<<<<< HEAD
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
 import static com.codename1.ui.CN.addNetworkErrorListener;
 import static com.codename1.ui.CN.getCurrentForm;
 import static com.codename1.ui.CN.updateNetworkThreadCount;
 import com.codename1.ui.Dialog;
+=======
+import PICodeName.entities.Evenement;
+import com.codename1.ui.Button;
+import com.codename1.ui.FontImage;
+>>>>>>> c12e508fbf33c72f79e5c2f9bad831dcce6c6ad8
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
+<<<<<<< HEAD
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import PICodeName.gui.SignInForm;
 import PICodeName.gui.SignUpForm;
+=======
+import java.util.ArrayList;
+import services.ServiceEvent;
+
+>>>>>>> c12e508fbf33c72f79e5c2f9bad831dcce6c6ad8
 /**
  *
  * @author farou
@@ -33,8 +45,11 @@ public class Home extends Form{
         setTitle("Home");
         setLayout(BoxLayout.y());
         add(new Label("Choose"));
-        Button btnAddEvent = new Button("Add Event");
+        Toolbar tb = getToolbar();
+        tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this,ServiceEvent.getInstance().getAllEvents()).show());
+
         Button btnListEvents = new Button("List Events");
+<<<<<<< HEAD
      
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
         btnListEvents.addActionListener(e-> new ListEvents(current).show());
@@ -43,4 +58,40 @@ public class Home extends Form{
    
      
   
+=======
+        btnListEvents.addActionListener(e-> new ListEventsClient(current,ServiceEvent.getInstance().getAllEvents()).show());
+
+        Button btnAddEvent = new Button("Add Event");
+        Button btnAddoffre = new Button("Add Offre");
+        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
+        btnAddoffre.addActionListener(e-> new addoffre().show());
+
+       
+        
+
+
+
+        Button btnAddFormation = new Button("Add Formation");
+
+        Button btnAddrdv = new Button("Add Rendez_vous");
+        Button btnListrdv = new Button("List Rendez_vous");
+        btnAddrdv.addActionListener(e-> new Addrdv(current).show());
+        btnListrdv.addActionListener(e-> new Listrdv(current).show());
+
+
+
+        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
+        btnAddoffre.addActionListener(e-> new addoffre().show());
+        btnAddFormation.addActionListener(e-> new addformation().show());
+
+        
+
+        
+        addAll(btnAddEvent,btnListEvents,btnAddoffre,btnAddrdv,btnListrdv);
+
+        
+        
+    }
+    
+>>>>>>> c12e508fbf33c72f79e5c2f9bad831dcce6c6ad8
 }
