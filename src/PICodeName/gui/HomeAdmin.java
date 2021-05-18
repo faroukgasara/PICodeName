@@ -52,7 +52,7 @@ public class HomeAdmin extends Form {
         Button btnListEvents = new Button("List Events");
         btnAddEvent.addActionListener(e -> new AddEvent(current).show());
         btnListEvents.addActionListener(e -> new ListEvents(current,ServiceEvent.getInstance().getAllEvents()).show());
-        addAll(btnAddEvent, btnListEvents);
+        //addAll(btnAddEvent, btnListEvents);
     }
 
 }

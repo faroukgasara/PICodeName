@@ -136,7 +136,7 @@ public class WalkthruForm extends com.codename1.ui.Form {
         }
         
         Container content1 = BoxLayout.encloseY(
-                new Label("Rdv", "WelcomeTitle"),
+                new Label("Meeting", "WelcomeTitle"),
                 new Label(resourceObjectInstance.getImage("welcome-separator.png"), "WelcomeTitle"),
                 new SpanLabel(line1, "WelcomeBody")
         );

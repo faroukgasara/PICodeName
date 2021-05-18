@@ -43,6 +43,7 @@ import org.json.JSONObject;
 public class Servicerdv {
     public ArrayList<Rendezvous> events;
     public ArrayList<Surfer> events1;
+    public ArrayList<Integer> statage;
     public static Servicerdv instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
@@ -58,8 +59,8 @@ public class Servicerdv {
         return instance;
     }
 
-    public boolean addrdv(Rendezvous e) {
-            String to = "farouk.gassara@esprit.tn";
+    public boolean addrdv(Rendezvous e,String dd) {
+            String to = dd;
         String host = "smtp.gmail.com";
         final String mail = "handclasp1@gmail.com";
         final String password = "handclasp11223344";
@@ -80,8 +81,8 @@ public class Servicerdv {
             MimeMessage m = new MimeMessage(session);
             m.setFrom(mail);
             m.addRecipients(javax.mail.Message.RecipientType.TO, to);
-            m.setSubject("Participation");
-            m.setText("Participation Confirmed prix :");
+            m.setSubject("MEETING");
+            m.setText("Votre rendez_vous:"+e.getDescription()+" aura lieu la date:"+ e.getDate()+"  et voici votre lien meet:"+e.getMeet()+" ");
             Transport.send(m);
 
         } catch (MessagingException ex) {
@@ -148,7 +149,7 @@ public class Servicerdv {
             json.put("meet", e.getMeet());
             json.put("date", e.getDate());
             json.put("description", e.getDescription());
-            //json.put("mail", e.getMail_id());
+            //json.put("mail_id", e.getMail_id());
 
             post.setUrl("http://127.0.0.1:8000/webservicesupdaterdv/"+id);
             post.setPost(true);
@@ -269,5 +270,46 @@ public class Servicerdv {
         NetworkManager.getInstance().addToQueueAndWait(req);
         System.out.println(events.toString());
         return true;
+    }
+      public ArrayList<Integer> parsestatrdv(String jsonText) {
+        ArrayList<Integer> e = new ArrayList<Integer>();
+        try {
+            statage = new ArrayList<>();
+            JSONParser j = new JSONParser();
+
+            Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
+            
+            for (Map<String, Object> obj : list) {
+
+                float age = Float.parseFloat(obj.get("Mois").toString());
+                e.add((int) age);
+
+                float nbage = Float.parseFloat(obj.get("NB").toString());
+                e.add((int) nbage);
+
+            }
+
+
+        } catch (IOException ex) {
+            System.out.println("services.ServiceEvent.parseEvents()");
+
+        }
+        return e;
+    }
+
+    public ArrayList<Integer> getstat() {
+        String url = "http://127.0.0.1:8000/statrdv";
+        req.setUrl(url);
+        req.setPost(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                statage = parsestatrdv(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return statage;
     }
 }
