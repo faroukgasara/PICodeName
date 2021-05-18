@@ -43,48 +43,4 @@ public class Home extends Form{
    
      
   
-
-
-        updateNetworkThreadCount(2);
-
-        theme = UIManager.initFirstTheme("/theme");
-
-        // Enable Toolbar on all Forms by default
-        Toolbar.setGlobalToolbar(true);
-
-        // Pro only feature
-        Log.bindCrashProtection(true);
-
-        addNetworkErrorListener(err -> {
-            // prevent the event from propagating
-            err.consume();
-            if(err.getError() != null) {
-                Log.e(err.getError());
-            }
-            Log.sendLogAsync();
-            Dialog.show("Connection Error", "There was a networking error in the connection to " + err.getConnectionRequest().getUrl(), "OK", null);
-        });        
-    }
-    
-    public void start() {
-        if(current != null){
-            current.show();
-            return;
-        }
-        //houni awl interface yet7al
-        new SignUpForm(theme).show(); //n7oto signup bch yjibha awl form
-       // new SignInForm(theme).show();
-    }
-
-    public void stop() {
-        current = getCurrentForm();
-        if(current instanceof Dialog) {
-            ((Dialog)current).dispose();
-            current = getCurrentForm();
-        }
-    }
-    
-    public void destroy() {
-    }
-
 }
