@@ -51,6 +51,7 @@ public class Home extends Form{
         Button btnAddEvent = new Button("Add Event");
         Button btnAddoffre = new Button("Add Offre");
 
+
         Button btnAddParticipantf = new Button("Add Participant");
         
 
