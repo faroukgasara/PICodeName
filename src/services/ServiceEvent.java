@@ -8,7 +8,7 @@ package services;
 import PICodeName.entities.Booking;
 import PICodeName.entities.Evenement;
 import PICodeName.entities.ParticipantE;
-import PICodeName.utils.Statics;
+
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;

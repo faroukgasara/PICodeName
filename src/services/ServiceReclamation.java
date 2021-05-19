@@ -6,7 +6,7 @@
 package services;
 
 import PICodeName.entities.Reclamation;
-import PICodeName.utils.Statics;
+
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
