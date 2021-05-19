@@ -13,24 +13,31 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import org.json.JSONObject;
 
 /**
@@ -138,7 +145,7 @@ public class ServiceFormation {
         return forms;
     }
      
-     public boolean updateEvent(Formation f, int id) {
+     public boolean updateFormation(Formation f, int id) {
         JSONObject json = new JSONObject();
         try {
             ConnectionRequest post = new ConnectionRequest() {
@@ -255,9 +262,67 @@ public class ServiceFormation {
     }
 
     //////////////////////////////////////////////////////////////////////
-    public boolean addParticipantf(ParticipantF p,int id) {
+    public boolean addParticipantf(ParticipantF p,int id) throws IOException {
         JSONObject json = new JSONObject();
         System.out.println(p.toString());
+         try {
+           String att = p.getNom()+ " " + p.getMail();
+           String qrCodeData = att;
+           
+            String filePath = "formation.png";
+            String charset = "UTF-8"; 
+            Map < com.google.zxing.EncodeHintType, com.google.zxing.qrcode.decoder.ErrorCorrectionLevel > hintMap = new Hashtable<com.google.zxing.EncodeHintType, com.google.zxing.qrcode.decoder.ErrorCorrectionLevel > ();
+            hintMap.put(com.google.zxing.EncodeHintType.ERROR_CORRECTION, com.google.zxing.qrcode.decoder.ErrorCorrectionLevel.L);
+            com.google.zxing.common.BitMatrix matrix = new MultiFormatWriter().encode(new String(qrCodeData.getBytes(charset), charset),
+                    BarcodeFormat.QR_CODE, 200, 200 , (Hashtable) hintMap);
+            
+            MatrixToImageWriter.writeToFile(matrix, filePath.substring(filePath.lastIndexOf('.') + 1), new File(filePath));
+            
+           System.out.println("QR Code image created successfully!");
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        String to = p.getMail();
+        String host = "smtp.gmail.com";
+        final String mail = "handclasp1@gmail.com";
+        final String password = "handclasp11223344";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(mail, password);
+            }
+        });
+
+        try {
+            MimeMessage m = new MimeMessage(session);
+            m.setFrom(mail);
+            m.addRecipients(javax.mail.Message.RecipientType.TO, to);
+            m.setSubject("Participation");
+            m.setText("Participation Confirmed Mr/Mr:" + p.getNom() );
+             m.addRecipients(Message.RecipientType.TO, to);
+            
+            Multipart emailContent = new MimeMultipart();
+            
+            MimeBodyPart TextBodyPArt = new MimeBodyPart();
+            TextBodyPArt.setText("formation");
+            
+            MimeBodyPart imageBodyPArt = new MimeBodyPart();
+            imageBodyPArt.attachFile("C:\\Users\\fedi\\Documents\\GitHub\\PICodeName\\formation.png");
+            
+            emailContent.addBodyPart(TextBodyPArt);
+            emailContent.addBodyPart(imageBodyPArt);
+            m.setContent(emailContent);
+            Transport.send(m);
+
+        } catch (MessagingException ex) {
+        }
         try {
             ConnectionRequest post = new ConnectionRequest() {
                 @Override
@@ -289,48 +354,7 @@ public class ServiceFormation {
             ex.printStackTrace();
            
         }
-         String host = "smtp.gmail.com";
-        final String mail = "handclasp1@gmail.com";
-        final String password = "handclasp11223344";
-        Properties props = System.getProperties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
        
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(mail, password);
-              
-            }
-            
-        });
-
-        try {
-            
-            MimeMessage m = new MimeMessage(session);
-                try {
-                    m.setFrom(mail);
-                } catch (MessagingException ex) {
-                   
-                }
-            m.addRecipients(Message.RecipientType.TO, p.getMail());
-            m.setSubject("Formation");
-            m.setText("Participation Confirmé");
-             m.addRecipients(Message.RecipientType.TO, p.getMail());
-            
-          
-            
-            MimeBodyPart TextBodyPArt = new MimeBodyPart();
-            TextBodyPArt.setText("formation");
-          
-            
-            Transport.send(m);
-
-        } catch (MessagingException e) {
-        }
-        
         return true;
 
     }}

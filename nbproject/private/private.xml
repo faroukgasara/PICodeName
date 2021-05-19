@@ -4,12 +4,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
-            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/addformation.java</file>
-            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/entities/Formation.java</file>
-            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/services/ServiceFormation.java</file>
-        </group>
-        <group>
             <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/entities/Formation.java</file>
             <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/services/ServiceFormation.java</file>
             <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/Home.java</file>
@@ -27,7 +21,6 @@
             <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/ListformationC.java</file>
             <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/ListParticipantF.java</file>
             <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/addParticipantf.java</file>
-
             <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/ListParticipantE.java</file>
             <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/ListEvents.java</file>
             <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/Bookin.java</file>
@@ -37,5 +30,13 @@
             <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/AddEvent.java</file>
         </group>
         <group/>
+        <group>
+            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/Home.java</file>
+            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/services/ServiceFormation.java</file>
+            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/afficheformation.java</file>
+            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/ListformationC.java</file>
+            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/entities/CategorieOffre.java</file>
+            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/addParticipantf.java</file>
+        </group>
     </open-files>
 </project-private>

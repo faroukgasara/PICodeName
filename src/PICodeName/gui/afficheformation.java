@@ -53,9 +53,10 @@ public class afficheformation extends Form {
         
         Form current =this;
         button.addActionListener(e 
-                -> new addParticipantf(Integer.parseInt(id) ).show()
+                -> new updateFormation(f, id, current).show()
         );
         button.setTextLine2(type);
+        button.setTextLine3(f.getLocalisation());
         button.setName("Label_3_3");
         button.setUIID("SmallFontLabel");
 
@@ -112,7 +113,7 @@ public class afficheformation extends Form {
         ev = ServiceFormation.getInstance().getAllFormations();
             
         for (Formation f : ev) {
-            list.add(createRankWidget(f.getTitle(), f.getDescription(), f,Integer.toString(f.getId())));
+            list.add(createRankWidget(f.getTitle(), f.getDescription() , f,Integer.toString(f.getId())));
         }
         
         addAll(list);
