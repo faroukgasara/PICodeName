@@ -99,12 +99,12 @@ public class ListEvents extends Form {
         starRank.setMinValue(0);
         starRank.setMaxValue(1);
         Font fnt = Font.createTrueTypeFont("native:MainLight", "native:MainLight").
-                derive(Display.getInstance().convertToPixels(5, true), Font.STYLE_PLAIN);
+                derive(Display.getInstance().convertToPixels(12, true), Font.STYLE_PLAIN);
         Style s = new Style(0xffff33, 0, fnt, (byte) 0);
         Image fullStar = FontImage.createMaterial(FontImage.MATERIAL_STAR, s).toImage();
         s.setOpacity(100);
         s.setFgColor(0);
-        Image emptyStar = FontImage.createMaterial(FontImage.MATERIAL_WALLET_MEMBERSHIP, s).toImage();
+        Image emptyStar = FontImage.createMaterial(FontImage.MATERIAL_LIST, s).toImage();
         initStarRankStyle(starRank.getSliderEmptySelectedStyle(), emptyStar);
         initStarRankStyle(starRank.getSliderEmptyUnselectedStyle(), emptyStar);
         initStarRankStyle(starRank.getSliderFullSelectedStyle(), fullStar);

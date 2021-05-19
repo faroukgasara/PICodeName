@@ -5,6 +5,7 @@
     <class>PICodeName.entities.Evenement</class>
     <class>PICodeName.entities.Offre</class>
     <class>PICodeName.entities.CategorieOffre</class>
+    <class>PICodeName.entities.NotifEvent</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pi?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

@@ -105,16 +105,21 @@ public class ListEventsClient extends Form {
 
     Button btnrecherche = new Button("Search");
 
-    
     final DefaultListModel<String> options = new DefaultListModel<>();
     AutoCompleteTextField ac = new AutoCompleteTextField(options);
     Form c;
 
     public ListEventsClient(Form previous, ArrayList<Evenement> ev) {
         c = new Home();
+        Form cu = this;
         setTitle("List Events Client");
         current = new Home();
         setLayout(BoxLayout.y());
+
+        Toolbar tb = getToolbar();
+
+        tb.addMaterialCommandToOverflowMenu("Chat Bot", FontImage.MATERIAL_CHAT, e -> new Chat().show());
+        tb.addMaterialCommandToOverflowMenu("Notif", FontImage.MATERIAL_NOTIFICATIONS_ACTIVE, e -> new EventNotif(cu).show());
 
         Form f = new Form(BoxLayout.y());
 
@@ -135,7 +140,6 @@ public class ListEventsClient extends Form {
             }
         });
 
-
         ArrayList<Evenement> a = new ArrayList<Evenement>();
         a = ServiceEvent.getInstance().getAllEvents();
         for (Evenement s : a) {
@@ -148,8 +152,6 @@ public class ListEventsClient extends Form {
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
 
     }
-
-
 
     public ArrayList<Evenement> ListEventsClien() {
         ArrayList<Evenement> ev = new ArrayList<Evenement>();

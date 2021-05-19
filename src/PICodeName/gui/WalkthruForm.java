@@ -130,7 +130,7 @@ public class WalkthruForm extends com.codename1.ui.Form {
             line2 = line2.replace('\n', ' ');
         }
 
-        String line3 =  "Active conduct with a view to obtaining or regaining employment./La formation consiste à enseigner à un employé les connaissances et les compétences nécessaires . La formation professionnelle est généralement adoptée pour des personnes exerçant déjà une activité professionnelle, et souhaitant accroître leurs compétences.";
+        String line3 =  "Active conduct with a view to obtaining or regaining employment./Training involves teaching an employee the necessary knowledge and skills. Vocational training is generally adopted for people already exercising a professional activity, and wishing to increase their skills.";
         if(!Display.getInstance().isTablet()) {
             line3 = line3.replace('\n', ' ');
         }
@@ -323,7 +323,7 @@ public class WalkthruForm extends com.codename1.ui.Form {
     }
 
     public void onButton_1ActionEvent(com.codename1.ui.events.ActionEvent ev) {
-        new HomeAdmin().show();
+        new Home().show();
     }
 
 }

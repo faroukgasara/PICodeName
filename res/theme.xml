@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <image name="1.jpg"  />
+    <image name="123.jpg"  />
     <image name="background.jpg"  />
+    <image name="bandicam 2021-05-19 18-29-08-833.jpg"  />
     <image name="bla.jpg"  />
     <image name="bridge.jpg"  />
     <image name="calendar-background.jpg"  />
@@ -58,8 +61,8 @@
             <entry key="Calendar.Thursday" value="Thu" />
             <entry key="ok" value="OK" />
             <entry key="Calendar.Saturday" value="Sat" />
-            <entry key="select" value="Select" />
             <entry key="Calendar.Friday" value="Fri" />
+            <entry key="select" value="Select" />
             <entry key="edit" value="Edit" />
             <entry key="Calendar.Monday" value="Mon" />
             <entry key="cancel" value="Cancel" />
@@ -73,6 +76,7 @@
     <image name="profile_image.png" type="multi"  />
     <image name="progress.png" type="multi"  />
     <image name="rdv.jpg"  />
+    <image name="red.png"  />
     <image name="selection-in-sidemenu.png" type="multi"  />
     <image name="sidemenu-background.jpg"  />
     <image name="skate-park.jpg"  />
@@ -601,4 +605,5 @@
     <image name="welcome-background.jpg"  />
     <image name="welcome-image-mask.png" type="multi"  />
     <image name="welcome-separator.png" type="multi"  />
+    <image name="white.png"  />
 </resource>
