@@ -25,8 +25,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javax.mail.Authenticator;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.MimeMessage;
 import org.json.JSONObject;
 
 /**
@@ -36,6 +43,7 @@ import org.json.JSONObject;
 public class Servicerdv {
     public ArrayList<Rendezvous> events;
     public ArrayList<Surfer> events1;
+    public ArrayList<Integer> statage;
     public static Servicerdv instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
@@ -51,13 +59,34 @@ public class Servicerdv {
         return instance;
     }
 
-    public boolean addrdv(Rendezvous e) {
-        /*json.put("title", "Test");
-                    json.put("type", "Test");
-                    json.put("description", "Test");
-                    json.put("localitation", "Testpw");
-                    json.put("id_societe", 1);
-                  req.setUrl("http://127.0.0.1:8000/webserviceseventaddevent");*/
+    public boolean addrdv(Rendezvous e,String dd) {
+            String to = dd;
+        String host = "smtp.gmail.com";
+        final String mail = "handclasp1@gmail.com";
+        final String password = "handclasp11223344";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(mail, password);
+            }
+        });
+
+        try {
+            MimeMessage m = new MimeMessage(session);
+            m.setFrom(mail);
+            m.addRecipients(javax.mail.Message.RecipientType.TO, to);
+            m.setSubject("MEETING");
+            m.setText("Votre rendez_vous:"+e.getDescription()+" aura lieu la date:"+ e.getDate()+"  et voici votre lien meet:"+e.getMeet()+" ");
+            Transport.send(m);
+
+        } catch (MessagingException ex) {
+        }
         JSONObject json = new JSONObject();
         try {
             ConnectionRequest post = new ConnectionRequest() {
@@ -94,7 +123,7 @@ public class Servicerdv {
             NetworkManager.getInstance().addToQueueAndWait(post);
             Map<String, Object> result = new JSONParser().parseJSON(new InputStreamReader(new ByteArrayInputStream(post.getResponseData()), "UTF-8"));
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());;
         }
         return true;
 
@@ -120,7 +149,7 @@ public class Servicerdv {
             json.put("meet", e.getMeet());
             json.put("date", e.getDate());
             json.put("description", e.getDescription());
-            json.put("mail_id", e.getMail_id());
+            //json.put("mail_id", e.getMail_id());
 
             post.setUrl("http://127.0.0.1:8000/webservicesupdaterdv/"+id);
             post.setPost(true);
@@ -148,10 +177,12 @@ public class Servicerdv {
                 Rendezvous e = new Rendezvous();
                 float id = Float.parseFloat(obj.get("id").toString());
                 e.setId((int) id);
+//                float mail = Float.parseFloat(obj.get("mail_id").toString());
+//                e.setMail_id((int) mail);
+                
                 e.setMeet(obj.get("meet").toString());
                 String sDate1=obj.get("date").toString();  
                 Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss+00:00").parse(sDate1);
-    
                 e.setDate(date);
                 // e.setStatus(((int)Float.parseFloat(obj.get("status").toString())));
                 e.setDescription(obj.get("description").toString());
@@ -239,5 +270,46 @@ public class Servicerdv {
         NetworkManager.getInstance().addToQueueAndWait(req);
         System.out.println(events.toString());
         return true;
+    }
+      public ArrayList<Integer> parsestatrdv(String jsonText) {
+        ArrayList<Integer> e = new ArrayList<Integer>();
+        try {
+            statage = new ArrayList<>();
+            JSONParser j = new JSONParser();
+
+            Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
+            
+            for (Map<String, Object> obj : list) {
+
+                float age = Float.parseFloat(obj.get("Mois").toString());
+                e.add((int) age);
+
+                float nbage = Float.parseFloat(obj.get("NB").toString());
+                e.add((int) nbage);
+
+            }
+
+
+        } catch (IOException ex) {
+            System.out.println("services.ServiceEvent.parseEvents()");
+
+        }
+        return e;
+    }
+
+    public ArrayList<Integer> getstat() {
+        String url = "http://127.0.0.1:8000/statrdv";
+        req.setUrl(url);
+        req.setPost(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                statage = parsestatrdv(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return statage;
     }
 }

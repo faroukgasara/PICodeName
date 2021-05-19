@@ -6,7 +6,9 @@
 package PICodeName.gui;
 
 import PICodeName.entities.Rendezvous;
+import PICodeName.entities.Surfer;
 import com.codename1.ui.Button;
+import com.codename1.ui.ComboBox;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -17,6 +19,7 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.Picker;
+import java.util.ArrayList;
 import services.Servicerdv;
 
 /**
@@ -27,12 +30,21 @@ public class Updaterdv extends Form{
 Form current;
     public Updaterdv(Rendezvous e ,String id,Form previous) {
         current = new Home();
+        
         System.out.println(e.toString());
         
         setTitle("Update Rendez_vous");
         setLayout(BoxLayout.y());
         TextField tfMeet = new TextField(e.getMeet());
         TextField tfDescription = new TextField(e.getDescription());
+        ComboBox cb=new ComboBox();
+         ArrayList<Surfer> ev = new ArrayList<Surfer>();
+        ev = Servicerdv.getInstance().getcombo();
+
+        for (Surfer s : ev) {
+cb.addItem(s.getEmailadress());
+
+        }
         //TextField tfMail = new TextField(e.getMail_id());
         Picker date = new Picker();
         date.setType(Display.PICKER_TYPE_DATE_AND_TIME);
@@ -46,7 +58,7 @@ Form current;
                 } else {
                     
                          try {
-                       Rendezvous e = new Rendezvous(date.getDate(),tfMeet.getText(), tfDescription.getText());
+                       Rendezvous e = new Rendezvous(date.getDate(),tfMeet.getText(), tfDescription.getText(),cb.getSelectedIndex()+1);
                         if (Servicerdv.getInstance().updaterdv(e,Integer.parseInt(id))) {
                             Dialog.show("Success", "RDV Updated", new Command("OK"));
                              new Listrdv(current).show();
@@ -59,7 +71,7 @@ Form current;
                 }
             }
         });
-        addAll(tfMeet,tfDescription,date, btnValider);
+        addAll(tfMeet,tfDescription,cb,date, btnValider);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e1 -> previous.show());
     }
 

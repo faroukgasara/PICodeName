@@ -30,7 +30,7 @@ public class UpdateEvent extends Form {
 
     public UpdateEvent(Evenement e, String id, Form previous) {
         c = new HomeAdmin();
-        current = new ListEvents(c);
+        current = new ListEvents(c,ServiceEvent.getInstance().getAllEvents());
         System.out.println(e.toString());
 
         setTitle("Update Event");
