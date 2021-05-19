@@ -27,26 +27,26 @@ public class Home extends Form{
 
         Button btnAddEvent = new Button("Add Event");
         Button btnAddoffre = new Button("Add Offre");
-        Button btnListEvents = new Button("List Events");
+        Button btnAddParticipantf = new Button("Add Participant");
+        
 
         Button btnAddFormation = new Button("Add Formation");
         Button btnAddrdv = new Button("Add Rendez_vous");
         Button btnListrdv = new Button("List Rendez_vous");
         btnAddrdv.addActionListener(e-> new Addrdv(current).show());
         btnListrdv.addActionListener(e-> new Listrdv(current).show());
-        addAll(btnListEvents,btnAddrdv,btnListrdv);
+        
 
 
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-        btnAddoffre.addActionListener(e-> new addoffre().show());
+        btnAddoffre.addActionListener(e-> new afficheformation().show());
         btnListEvents.addActionListener(e-> new ListEvents(current).show());
         btnAddFormation.addActionListener(e-> new addformation().show());
-        addAll(btnAddEvent,btnListEvents,btnAddFormation);
-
+        btnAddFormation.addActionListener(e-> new addformation().show());
+        
         
 
-        
-        addAll(btnAddEvent,btnListEvents,btnAddoffre,btnAddrdv,btnListrdv);
+         addAll(btnAddEvent,btnAddFormation,btnListEvents,btnAddoffre,btnAddrdv,btnListrdv);
         
         
     }
