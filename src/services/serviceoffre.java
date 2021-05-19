@@ -7,6 +7,7 @@ package services;
 
 import PICodeName.entities.Evenement;
 import PICodeName.entities.Offre;
+import PICodeName.entities.ParticipantF;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
@@ -23,19 +24,18 @@ import java.util.List;
 import java.util.Map;
 import org.json.JSONObject;
 
-
 /**
  *
  * @author Lenovo
  */
 public class serviceoffre {
-   
+
     public ArrayList<Offre> offres;
     public static serviceoffre instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
 
-    private serviceoffre () {
+    private serviceoffre() {
         req = new ConnectionRequest();
     }
 
@@ -46,7 +46,7 @@ public class serviceoffre {
         return instance;
     }
 
-    public boolean addoffre(Offre  e) {
+    public boolean addoffre(Offre e) {
         JSONObject json = new JSONObject();
         try {
             ConnectionRequest post = new ConnectionRequest() {
@@ -64,13 +64,10 @@ public class serviceoffre {
                 }
             };
 
-            
             json.put("specialite", e.getSpecialite());
-            json.put("typecategorie", e.getTypecategorieId());
+            json.put("localisation", e.getLocalisation());
+            json.put("nb_dem", e.getNbDem());
             json.put("description", e.getDescription());
-            json.put("localitation", e.getLocalisation());
-            json.put("offre nb_dem", e.getNbDem());
-            json.put("Viewed", 0);
 
             post.setUrl("http://127.0.0.1:8000/webserviceseventaddoffre");
             post.setPost(true);
@@ -87,7 +84,66 @@ public class serviceoffre {
     }
 
     //////////////////////////////////////////////////////////////////////
-    public boolean updateoffre (Offre e,int id) {
+    public ArrayList<Offre> parseoffre(String jsonText) {
+        try {
+            offres = new ArrayList<>();
+            JSONParser j = new JSONParser();
+
+            Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
+
+            for (Map<String, Object> obj : list) {
+                Offre e = new Offre();
+                float NbDem = Float.parseFloat(obj.get("nb_dem").toString());
+                e.setNbDem((int) NbDem);
+
+                float id = Float.parseFloat(obj.get("id").toString());
+                e.setId((int) id);
+                e.setDescription(obj.get("localisation").toString());
+                e.setDescription(obj.get("description").toString());
+                offres.add(e);
+            }
+
+        } catch (IOException ex) {
+            System.out.println("services.ServiceEvent.parseEvents()");
+
+        }
+        return offres;
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    public ArrayList<Offre> getAlloffre() {
+        String url = "http://127.0.0.1:8000/webservicesafficheoffre";
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                offres = parseoffre(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return offres;
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    public boolean deleteoffre(int id) {
+        String url = "http://127.0.0.1:8000/webserviceseventdeletoffre/"+ id;
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return true;
+    }
+    
+    //////////////////////////////////////////////////////////////////////
+    public boolean updateoffree(Offre e ,int id) {
         JSONObject json = new JSONObject();
         try {
             ConnectionRequest post = new ConnectionRequest() {
@@ -105,13 +161,12 @@ public class serviceoffre {
                 }
             };
 
-           json.put("specialite", e.getSpecialite());
-            json.put("typecategorie", e.getTypecategorieId());
+            json.put("specialite", e.getSpecialite());
+            json.put("localisation", e.getLocalisation());
+            json.put("nb_dem", e.getNbDem());
             json.put("description", e.getDescription());
-            json.put("localitation", e.getLocalisation());
-            json.put("offre nb_dem", e.getNbDem());
 
-            post.setUrl("http://127.0.0.1:8000/webserviceseventupdateoffre/"+id);
+            post.setUrl("http://127.0.0.1:8000/webserviceseventupdateoffre/" + id);
             post.setPost(true);
             post.setContentType("application/json");
             post.addArgument("body", json.toString());
@@ -124,66 +179,5 @@ public class serviceoffre {
         return true;
 
     }
-     public ArrayList<Offre> parseoffre (String jsonText) {
-        try {
-            offres= new ArrayList<>();
-            JSONParser j = new JSONParser();
-
-            Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-            List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
-
-            for (Map<String, Object> obj : list) {
-                Offre e = new Offre();
-                float id = Float.parseFloat(obj.get("id").toString());
-                e.setId((int) id);
-                e.setSpecialite(obj.get("specialite").toString());
-                // e.setStatus(((int)Float.parseFloat(obj.get("status").toString())));
-                
-                e.setDescription(obj.get("description").toString());
-                e.setLocalisation(obj.get("localitation").toString());
-                offres.add(e);
-            }
-
-        } catch (IOException ex) {
-            System.out.println("services.ServiceEvent.parseEvents()");
-
-        }
-        return offres;
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    public ArrayList<Offre> getAlloffre() {
-        String url = "http://127.0.0.1:8000/webservicesoffreevents";
-        req.setUrl(url);
-        req.setPost(false);
-        req.addResponseListener(new ActionListener<NetworkEvent>() {
-            @Override
-            public void actionPerformed(NetworkEvent evt) {
-                offres = parseoffre(new String(req.getResponseData()));
-                req.removeResponseListener(this);
-            }
-        });
-        NetworkManager.getInstance().addToQueueAndWait(req);
-        System.out.println(offres.toString());
-        return offres;
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    public boolean deleteoffre(int id) {
-        String url = "http://127.0.0.1:8000/webserviceseventdeletoffre/" + id;
-        req.setUrl(url);
-        req.setPost(false);
-        req.addResponseListener(new ActionListener<NetworkEvent>() {
-            @Override
-            public void actionPerformed(NetworkEvent evt) {
-                req.removeResponseListener(this);
-            }
-        });
-        NetworkManager.getInstance().addToQueueAndWait(req);
-        System.out.println(offres.toString());
-        return true;
-    }
 
 }
-
-

@@ -51,10 +51,6 @@ public class Home extends Form{
         Button btnListEvents = new Button("List Events");
 
      
-        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-        btnListEvents.addActionListener(e-> new ListEvents(current).show());
-      
-        addAll(btnAddEvent,btnListEvents);
    
      
   
@@ -69,7 +65,6 @@ public class Home extends Form{
         
 
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-        btnAddoffre.addActionListener(e-> new addoffre().show());
 
        
         
@@ -88,8 +83,6 @@ public class Home extends Form{
 
 
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-        btnAddoffre.addActionListener(e-> new afficheformation().show());
-        btnListEvents.addActionListener(e-> new ListEvents(current).show());
         btnAddFormation.addActionListener(e-> new addformation().show());
         btnAddFormation.addActionListener(e-> new addformation().show());
 
@@ -97,7 +90,7 @@ public class Home extends Form{
 
 
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-        btnAddoffre.addActionListener(e-> new addoffre().show());
+        btnAddoffre.addActionListener(e-> new frontoffre().show());
         btnAddFormation.addActionListener(e-> new addformation().show());
 
 

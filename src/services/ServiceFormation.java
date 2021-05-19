@@ -289,47 +289,9 @@ public class ServiceFormation {
             ex.printStackTrace();
            
         }
-         String host = "smtp.gmail.com";
-        final String mail = "handclasp1@gmail.com";
-        final String password = "handclasp11223344";
-        Properties props = System.getProperties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
-       
-        Session session = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(mail, password);
-              
-            }
-            
-        });
+        
 
-        try {
-            
-            MimeMessage m = new MimeMessage(session);
-                try {
-                    m.setFrom(mail);
-                } catch (MessagingException ex) {
-                   
-                }
-            m.addRecipients(Message.RecipientType.TO, p.getMail());
-            m.setSubject("Formation");
-            m.setText("Participation Confirmé");
-             m.addRecipients(Message.RecipientType.TO, p.getMail());
-            
-          
-            
-            MimeBodyPart TextBodyPArt = new MimeBodyPart();
-            TextBodyPArt.setText("formation");
-          
-            
-            Transport.send(m);
-
-        } catch (MessagingException e) {
-        }
+        
         
         return true;
 

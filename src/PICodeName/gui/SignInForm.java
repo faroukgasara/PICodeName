@@ -16,7 +16,6 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.util.Resources;
 import PICodeName.entities.utilisateur;
-import services.ServiceUtilisateur;
 
 public class SignInForm extends BaseForm {
 
@@ -65,12 +64,7 @@ public class SignInForm extends BaseForm {
         add(BorderLayout.SOUTH, content);
         signIn.requestFocus();
         
-        signIn.addActionListener(e -> 
-        {
-               ServiceUtilisateur.getInstance().signin(username, password, res);
-
-           
-        });
+        
         
         
         
