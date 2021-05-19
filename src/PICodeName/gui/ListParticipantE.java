@@ -32,7 +32,7 @@ public class ListParticipantE extends Form {
         MultiButton button = new MultiButton(title);
         //button.setIcon(icon);
         c = new Home();
-        current =new  ListEvents(c);
+        current =new  ListEvents(c,ServiceEvent.getInstance().getAllEvents());
 
         //button.setTextLine1(id);
         //button.setPressedIcon(icon);
@@ -49,6 +49,7 @@ public class ListParticipantE extends Form {
         );
 
         button.setTextLine2(type);
+        button.setTextLine3(s.getSeat());
         button.setName("Label_3_3");
         button.setUIID("SmallFontLabel");
 
@@ -58,6 +59,7 @@ public class ListParticipantE extends Form {
 
     public ListParticipantE(int id, Form previous) {
         System.out.println(id);
+        setTitle("List Part");
         ArrayList<ParticipantE> i = new ArrayList<ParticipantE>();
         i = ServiceEvent.getInstance().getAllParticipant(id);
 
@@ -73,7 +75,7 @@ public class ListParticipantE extends Form {
             options.addItem(s.getNom());
         }
         AutoCompleteTextField ac = new AutoCompleteTextField(options);
-        addAll(ac,list);
+        addAll(list);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
 
     }

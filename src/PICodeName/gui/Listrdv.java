@@ -8,7 +8,9 @@ package PICodeName.gui;
 import PICodeName.entities.Rendezvous;
 import PICodeName.entities.Surfer;
 import com.codename1.components.MultiButton;
+import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -19,6 +21,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Slider;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -77,6 +80,38 @@ public class Listrdv extends Form {
 
     public Listrdv(Form previous) {
         setTitle("Meeting List");
+//         Toolbar tb = getToolbar();
+//
+//        tb.addMaterialCommandToOverflowMenu("Stat", FontImage.MATERIAL_STACKED_LINE_CHART, e -> new Statrdv(current).show());
+//        
+////          search tbadel 3onwen tool bar
+////prepare field
+//            TextField searchField;
+//            searchField = new TextField("", "Articles' List");
+//            searchField.getHintLabel().setUIID("Title");
+//            searchField.setUIID("Title");
+//            getToolbar().setTitleComponent(searchField);
+////if field content changed
+//            searchField.addDataChangeListener((i1, i2) -> {
+//            String t = searchField.getText();
+//            if(t.length() < 1) {
+//            for(Component cmp : getContentPane()) {
+//            cmp.setHidden(false);
+//            cmp.setVisible(true);
+//                                }
+//                        } else {
+//                    t = t.toLowerCase();
+//                   for(Component cmp: getContentPane()) {
+////tekhou el val ta3 el champ : champ li 3malt 3lih el recherche type span label (emplacement : container->container->spanlabel )
+//                String val = ((SpanLabel) ((Container)((Container) cmp).getComponentAt(0)).getComponentAt(0)).getText();
+//                    System.out.println( val );
+//                boolean show = val != null && val.toLowerCase().indexOf(t) > -1;
+//                cmp.setHidden(!show);
+//                cmp.setVisible(show);
+//                }
+//                }
+//                getContentPane().animateLayout(250);
+//                });
 
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);
@@ -95,5 +130,6 @@ public class Listrdv extends Form {
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
 
     }
+  
 
 }

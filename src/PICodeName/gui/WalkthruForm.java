@@ -5,6 +5,111 @@
  */
 package PICodeName.gui;
 
+<<<<<<< HEAD
+import com.codename1.components.ScaleImageLabel;
+import com.codename1.components.SpanLabel;
+import com.codename1.ui.Button;
+import com.codename1.ui.ButtonGroup;
+import static com.codename1.ui.Component.CENTER;
+import com.codename1.ui.Container;
+import com.codename1.ui.Display;
+import com.codename1.ui.Form;
+import com.codename1.ui.Graphics;
+import com.codename1.ui.Image;
+import com.codename1.ui.RadioButton;
+import com.codename1.ui.Tabs;
+import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.layouts.LayeredLayout;
+import com.codename1.ui.util.Resources;
+
+/**
+ * Swiping thru tutorial
+ *
+ * @author Shai Almog
+ */
+public class WalkthruForm extends Form {
+
+    public WalkthruForm(Resources res) {
+        super(new BorderLayout());
+        getTitleArea().setUIID("Container");
+        setUIID("Welcome");
+        Tabs t = new Tabs();
+        t.hideTabs();
+        t.setUIID("Container");
+        t.getContentPane().setUIID("Container");
+        add(BorderLayout.CENTER, t);
+        
+        ScaleImageLabel page1 = new ScaleImageLabel(res.getImage("welcome-slide-1.png"));
+        ScaleImageLabel page2 = new ScaleImageLabel(res.getImage("welcome-slide-2.png"));
+        ScaleImageLabel page3 = new ScaleImageLabel(res.getImage("welcome-slide-3.png"));
+        page1.setUIID("Container");
+        page2.setUIID("Container");
+        page3.setUIID("Container");
+        page1.getAllStyles().setBgTransparency(0);
+        page2.getAllStyles().setBgTransparency(0);
+        page3.getAllStyles().setBgTransparency(0);
+        t.addTab("", page1);
+        t.addTab("", page2);
+        t.addTab("", page3);
+        
+        String[] messages = {
+            "Manage your tasks quickly\nand efficiently",
+            "This demo is powered by\nCodename One",
+            "Start NOW\n press skip"            
+        };
+        
+        SpanLabel message = new SpanLabel(messages[0], "WelcomeMessage");
+                
+
+        ButtonGroup bg = new ButtonGroup();
+        int size = Display.getInstance().convertToPixels(1);
+        Image unselectedWalkthru = Image.createImage(size, size, 0);
+        Graphics g = unselectedWalkthru.getGraphics();
+        g.setColor(0xcccccc);
+        g.setAntiAliased(true);
+        g.fillArc(0, 0, size, size, 0, 360);
+        Image selectedWalkthru = Image.createImage(size, size, 0);
+        g = selectedWalkthru.getGraphics();
+        g.setColor(0xff2d55);
+        g.setAntiAliased(true);
+        g.fillArc(0, 0, size, size, 0, 360);
+        RadioButton[] rbs = new RadioButton[t.getTabCount()];
+        FlowLayout flow = new FlowLayout(CENTER);
+        flow.setValign(CENTER);
+        Container radioContainer = new Container(flow);
+        for(int iter = 0 ; iter < rbs.length ; iter++) {
+            rbs[iter] = RadioButton.createToggle(unselectedWalkthru, bg);
+            rbs[iter].setPressedIcon(selectedWalkthru);
+            rbs[iter].setUIID("Label");
+            radioContainer.add(rbs[iter]);
+        }
+                
+        rbs[0].setSelected(true);
+        t.addSelectionListener((i, ii) -> {
+            if(!rbs[ii].isSelected()) {
+                rbs[ii].setSelected(true);
+                message.setText(messages[ii]);
+            }
+        });
+        
+        Button skip = new Button("Skip");
+        skip.setUIID("SkipButton");
+        skip.addActionListener(e -> new SignInForm(res).show());
+        
+        Container welcomeNoteArea = BoxLayout.encloseY(message,
+                LayeredLayout.encloseIn(
+                        radioContainer,
+                        BorderLayout.east(skip)
+                )
+        );
+        welcomeNoteArea.setUIID("WelcomeNoteArea");
+        add(BorderLayout.SOUTH, welcomeNoteArea);
+    }
+    
+}
+=======
 /**
  *
  * @author farou
@@ -112,43 +217,43 @@ public class WalkthruForm extends com.codename1.ui.Form {
         bg.add(gui_tab3);
         gui_tab1.setSelected(true);
         
-        Image bla = resourceObjectInstance.getImage("bla.jpg");
-        Image griffith = resourceObjectInstance.getImage("griffith.jpg");
-        Image learn = resourceObjectInstance.getImage("learn-codename-one.jpg");
+        Image bla = resourceObjectInstance.getImage("rdv.jpg");
+        Image griffith = resourceObjectInstance.getImage("event.jpg");
+        Image learn = resourceObjectInstance.getImage("offre.jpg");
         
         gui_tab1Root.setLayout(new BorderLayout());
         gui_tab2Root.setLayout(new BorderLayout());
         gui_tab3Root.setLayout(new BorderLayout());
         
-        String line1 =  "The rule of thirds states that an image is\nmost pleasing when its subjects or\nregions are ...";
+        String line1 =  "A company can set up an appointment with an employee and send the meet by email to spend it online";
         if(!Display.getInstance().isTablet()) {
             line1 = line1.replace('\n', ' ');
         }
 
-        String line2 =  "The second page of a wizard is important\nbut nothing beats the third page ...";
+        String line2 =  "The concept of corporate event encompasses company dinners, meetings, conferences, symposiums and even recreational activities";
         if(!Display.getInstance().isTablet()) {
             line2 = line2.replace('\n', ' ');
         }
 
-        String line3 =  "This is all made possible thanks to\nCodename One which makes it\nwork on all OS's ...";
+        String line3 =  "Active conduct with a view to obtaining or regaining employment./Training involves teaching an employee the necessary knowledge and skills. Vocational training is generally adopted for people already exercising a professional activity, and wishing to increase their skills.";
         if(!Display.getInstance().isTablet()) {
             line3 = line3.replace('\n', ' ');
         }
         
         Container content1 = BoxLayout.encloseY(
-                new Label("Rule of thirds", "WelcomeTitle"),
+                new Label("Meeting", "WelcomeTitle"),
                 new Label(resourceObjectInstance.getImage("welcome-separator.png"), "WelcomeTitle"),
                 new SpanLabel(line1, "WelcomeBody")
         );
 
         Container content2 = BoxLayout.encloseY(
-                new Label("Rule of Page 2", "WelcomeTitle"),
+                new Label("Event", "WelcomeTitle"),
                 new Label(resourceObjectInstance.getImage("welcome-separator.png"), "WelcomeTitle"),
                 new SpanLabel(line2, "WelcomeBody")
         );
 
         Container content3 = BoxLayout.encloseY(
-                new Label("Codename One", "WelcomeTitle"),
+                new Label("Offer & Training ", "WelcomeTitle"),
                 new Label(resourceObjectInstance.getImage("welcome-separator.png"), "WelcomeTitle"),
                 new SpanLabel(line3, "WelcomeBody")
         );
@@ -323,7 +428,8 @@ public class WalkthruForm extends com.codename1.ui.Form {
     }
 
     public void onButton_1ActionEvent(com.codename1.ui.events.ActionEvent ev) {
-        new HomeAdmin().show();
+        new Home().show();
     }
 
 }
+>>>>>>> c12e508fbf33c72f79e5c2f9bad831dcce6c6ad8

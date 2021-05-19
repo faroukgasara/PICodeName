@@ -7,6 +7,7 @@ package PICodeName.gui;
 
 import PICodeName.entities.Evenement;
 import com.codename1.components.MultiButton;
+import com.codename1.notifications.LocalNotification;
 import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
@@ -20,6 +21,9 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Slider;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
@@ -99,28 +103,76 @@ public class ListEventsClient extends Form {
         return starRank;
     }
 
-    public ListEventsClient(Form previous) {
-        setTitle("List Events");
-        current = this;
+    Button btnrecherche = new Button("Search");
+
+    final DefaultListModel<String> options = new DefaultListModel<>();
+    AutoCompleteTextField ac = new AutoCompleteTextField(options);
+    Form c;
+
+    public ListEventsClient(Form previous, ArrayList<Evenement> ev) {
+        c = new Home();
+        Form cu = this;
+        setTitle("List Events Client");
+        current = new Home();
+        setLayout(BoxLayout.y());
+
+        Toolbar tb = getToolbar();
+
+        tb.addMaterialCommandToOverflowMenu("Chat Bot", FontImage.MATERIAL_CHAT, e -> new Chat().show());
+        tb.addMaterialCommandToOverflowMenu("Notif", FontImage.MATERIAL_NOTIFICATIONS_ACTIVE, e -> new EventNotif(cu).show());
+
+        Form f = new Form(BoxLayout.y());
 
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);
         list.setDropTarget(true);
-
-        ArrayList<Evenement> ev = new ArrayList<Evenement>();
-        ev = ServiceEvent.getInstance().getAllEvents();
-
-        
-        final DefaultListModel<String> options = new DefaultListModel<>();
-
         for (Evenement s : ev) {
             list.add(createRankWidget(s.getTitle(), s.getType(), s, Integer.toString(s.getId())));
             options.addItem(s.getTitle());
         }
-        
-        AutoCompleteTextField ac = new AutoCompleteTextField(options);
-        addAll(ac, list);
+
+        f.add(list);
+
+        btnrecherche.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                ListEventsClien();
+            }
+        });
+
+        ArrayList<Evenement> a = new ArrayList<Evenement>();
+        a = ServiceEvent.getInstance().getAllEvents();
+        for (Evenement s : a) {
+
+            options.addItem(s.getTitle());
+        }
+
+        addAll(ac, btnrecherche, f);
+
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
+
+    }
+
+    public ArrayList<Evenement> ListEventsClien() {
+        ArrayList<Evenement> ev = new ArrayList<Evenement>();
+
+        if (ac.getText().length() == 0) {
+            ev = ServiceEvent.getInstance().getAllEvents();
+            new ListEventsClient(c, ev).show();
+
+            return ev;
+
+        } else {
+            try {
+                ev = ServiceEvent.getInstance().search(ac.getText());
+                new ListEventsClient(c, ev).show();
+                return ev;
+
+            } catch (Exception ex) {
+                Dialog.show("ERROR", "ERROR", new Command("OK"));
+            }
+        }
+        return ev;
 
     }
 
