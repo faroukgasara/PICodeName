@@ -6,14 +6,7 @@
 package PICodeName.gui;
 
 
-import com.codename1.io.Log;
-import com.codename1.ui.Button;
-import static com.codename1.ui.CN.addNetworkErrorListener;
-import static com.codename1.ui.CN.getCurrentForm;
-import static com.codename1.ui.CN.updateNetworkThreadCount;
-import com.codename1.ui.Dialog;
 
-import PICodeName.entities.Evenement;
 import com.codename1.ui.Button;
 import com.codename1.ui.FontImage;
 
@@ -21,13 +14,10 @@ import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
-
-import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
-import PICodeName.gui.SignInForm;
-import PICodeName.gui.SignUpForm;
 
-import java.util.ArrayList;
+
+
 import services.ServiceEvent;
 
 
@@ -51,6 +41,7 @@ public class Home extends Form{
         Button btnListEvents = new Button("List Events");
 
      
+
    
      
   
@@ -73,6 +64,8 @@ public class Home extends Form{
 
 
         Button btnAddFormation = new Button("Add Formation");
+         Button btnAfficheformation = new Button("Affiche Formation");
+        
 
         Button btnAddrdv = new Button("Add Rendez_vous");
         Button btnListrdv = new Button("List Rendez_vous");
@@ -83,8 +76,13 @@ public class Home extends Form{
 
 
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
+
         btnAddFormation.addActionListener(e-> new addformation().show());
+
+        btnAfficheformation.addActionListener(e-> new afficheformation().show());
+        
         btnAddFormation.addActionListener(e-> new addformation().show());
+        
 
 
 
@@ -98,7 +96,7 @@ public class Home extends Form{
         
 
 
-         addAll(btnAddEvent,btnAddFormation,btnListEvents,btnAddoffre,btnAddrdv,btnListrdv);
+         addAll(btnAddEvent,btnAddFormation,btnAfficheformation,btnListEvents,btnAddoffre,btnAddrdv,btnListrdv);
 
         
 

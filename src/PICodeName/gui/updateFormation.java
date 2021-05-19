@@ -55,7 +55,7 @@ public class updateFormation extends Form{
                 } else {
                     try {
                        Formation f = new Formation(tfDescription.getText(), date.getDate(), tfTitle.getText(),  tfLocalisation.getText() );
-                        if (ServiceFormation.getInstance().updateEvent(f, Integer.parseInt(id))) {
+                        if (ServiceFormation.getInstance().updateFormation(f, Integer.parseInt(id))) {
                             Dialog.show("Success", "Formation Updated", new Command("OK"));
                             new HomeAdmin().show();
                         } else {
