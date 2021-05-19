@@ -72,7 +72,7 @@ public class serviceoffre {
             json.put("offre nb_dem", e.getNbDem());
             json.put("Viewed", 0);
 
-            post.setUrl("http://127.0.0.1:8000/webserviceseventaddevent");
+            post.setUrl("http://127.0.0.1:8000/webserviceseventaddoffre");
             post.setPost(true);
             post.setContentType("application/json");
             post.addArgument("body", json.toString());
@@ -111,7 +111,7 @@ public class serviceoffre {
             json.put("localitation", e.getLocalisation());
             json.put("offre nb_dem", e.getNbDem());
 
-            post.setUrl("http://127.0.0.1:8000/webserviceseventupdateevent/"+id);
+            post.setUrl("http://127.0.0.1:8000/webserviceseventupdateoffre/"+id);
             post.setPost(true);
             post.setContentType("application/json");
             post.addArgument("body", json.toString());
@@ -153,7 +153,7 @@ public class serviceoffre {
 
     //////////////////////////////////////////////////////////////////////
     public ArrayList<Offre> getAlloffre() {
-        String url = "http://127.0.0.1:8000/webserviceseventevents";
+        String url = "http://127.0.0.1:8000/webservicesoffreevents";
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -170,7 +170,7 @@ public class serviceoffre {
 
     //////////////////////////////////////////////////////////////////////
     public boolean deleteoffre(int id) {
-        String url = "http://127.0.0.1:8000/webserviceseventdeleteevent/" + id;
+        String url = "http://127.0.0.1:8000/webserviceseventdeletoffre/" + id;
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
