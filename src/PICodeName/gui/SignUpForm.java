@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -21,6 +22,7 @@ import com.codename1.ui.util.Resources;
 import com.codename1.ui.Toolbar;
 import java.util.Vector;
 import PICodeName.entities.utilisateur;
+
 
 /**
  *
@@ -85,7 +87,7 @@ public class SignUpForm extends BaseForm {
                 FlowLayout.encloseCenter(alreadHaveAnAccount, signIn)
         ));
         next.requestFocus();
-      
+
     }
 
     

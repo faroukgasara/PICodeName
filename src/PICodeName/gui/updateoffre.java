@@ -1,5 +1,3 @@
-//Offre e = new Offre(tfspecialite.getText(), tfLocalisation.getText(), Integer.parseInt(tfnb_dem.getText()), tfDescription.getText());
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -7,35 +5,26 @@
  */
 package PICodeName.gui;
 
-import PICodeName.entities.Evenement;
 import PICodeName.entities.Offre;
-import com.codename1.notifications.LocalNotification;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
-import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.spinner.Picker;
-import services.ServiceEvent;
 import services.serviceoffre;
 
 /**
  *
- * @author farou
+ * @author Lenovo
  */
-public class addoffre extends Form {
+public class updateoffre extends Form{
+    public updateoffre(Offre f,int id){
+        
 
-    Form current;
-
-    public addoffre() {
-        current = new HomeAdmin();
-
-        setTitle("Add New Offre");
+        setTitle("Update Offre");
         setLayout(BoxLayout.y());
         TextField specialite = new TextField("", "specialite ");
         TextField localisation = new TextField("", " localisation");
@@ -54,7 +43,7 @@ public class addoffre extends Form {
                         //System.out.println(".actionPerformed()");
                         Offre e = new Offre(specialite.getText(), localisation.getText(), Integer.parseInt(nb_dem.getText()), description.getText());
                         System.out.println(".actionPerformed()");
-                        if (serviceoffre.getInstance().addoffre(e)) {
+                        if (serviceoffre.getInstance().updateoffree(e,id)) {
                             Dialog.show("Success", "Offre accepted", new Command("OK"));
                             new HomeAdmin().show();
                             
@@ -69,7 +58,7 @@ public class addoffre extends Form {
         });
         addAll(specialite,localisation,nb_dem,description, btnValider);
         //getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
-
+        
     }
-
+    
 }
