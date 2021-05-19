@@ -21,8 +21,6 @@ import com.codename1.ui.util.Resources;
 import com.codename1.ui.Toolbar;
 import java.util.Vector;
 import PICodeName.entities.utilisateur;
-import services.ServiceUtilisateur;
- 
 
 /**
  *
@@ -87,12 +85,7 @@ public class SignUpForm extends BaseForm {
                 FlowLayout.encloseCenter(alreadHaveAnAccount, signIn)
         ));
         next.requestFocus();
-        next.addActionListener((e) -> {
-            
-            ServiceUtilisateur.getInstance().signup(Username, password, emailadresse, confirmPassword, roles, res);
-            Dialog.show("Success","account is saved","OK",null);
-            new SignInForm(res).show();
-        });
+      
     }
 
     

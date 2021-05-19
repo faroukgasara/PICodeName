@@ -6,6 +6,7 @@
 package PICodeName.gui;
 
 import PICodeName.entities.Evenement;
+import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Form;
 import com.codename1.ui.Toolbar;
@@ -33,6 +34,7 @@ import services.ServiceEvent;
 public class HomeAdmin extends Form {
 
     Form current;
+    private Resources theme;
 
     public HomeAdmin() {
         current = this;
@@ -40,19 +42,13 @@ public class HomeAdmin extends Form {
 
         Toolbar tb = getToolbar();
 
-
-
         tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEvents(this,ServiceEvent.getInstance().getAllEvents()).show());
-
         tb.addMaterialCommandToSideMenu("Meeting List", FontImage.MATERIAL_UPDATE, e -> new Listrdv(this).show());
         tb.addMaterialCommandToSideMenu("Add a Meet", FontImage.MATERIAL_UPDATE, e -> new Addrdv(this).show());
 
         setLayout(BoxLayout.y());
-        Button btnAddEvent = new Button("Add Event");
-        Button btnListEvents = new Button("List Events");
-        btnAddEvent.addActionListener(e -> new AddEvent(current).show());
-        btnListEvents.addActionListener(e -> new ListEvents(current,ServiceEvent.getInstance().getAllEvents()).show());
-        //addAll(btnAddEvent, btnListEvents);
+        
+        //addAll(btnValider);
     }
 
 }
