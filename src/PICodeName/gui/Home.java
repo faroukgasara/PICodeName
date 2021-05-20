@@ -5,6 +5,10 @@
  */
 package PICodeName.gui;
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
 import static com.codename1.ui.CN.addNetworkErrorListener;
@@ -16,26 +20,38 @@ import PICodeName.entities.Evenement;
 import com.codename1.ui.Button;
 import com.codename1.ui.FontImage;
 
+<<<<<<< Updated upstream
 
 
 import com.codename1.ui.Button;
 import com.codename1.ui.FontImage;
 
+=======
+>>>>>>> Stashed changes
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 
+<<<<<<< Updated upstream
 
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import PICodeName.gui.SignInForm;
 import PICodeName.gui.SignUpForm;
 import com.codename1.components.ImageViewer;
+=======
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
+
+>>>>>>> Stashed changes
 
 import java.util.ArrayList;
 import services.ServiceEvent;
+import services.ServiceReclamation;
 
+
+<<<<<<< Updated upstream
 
 import com.codename1.ui.util.Resources;
 
@@ -44,6 +60,8 @@ import com.codename1.ui.util.Resources;
 import services.ServiceEvent;
 
 
+=======
+>>>>>>> Stashed changes
 /**
  *
  * @author farou
@@ -71,7 +89,11 @@ public class Home extends Form {
         Button btnListEvents = new Button("List Events");
 
      
+<<<<<<< Updated upstream
 
+=======
+       
+>>>>>>> Stashed changes
    
      
   
@@ -88,7 +110,13 @@ public class Home extends Form {
         btnAddEvent.addActionListener(e-> new AddEvent(current).show());
 
        
-        
+        tb.addMaterialCommandToSideMenu("complaint", FontImage.MATERIAL_UPDATE, e -> {
+            try {
+                new LIstReclamations(this,ServiceReclamation.getInstance().affichageReclamationsa()).show();
+            } catch (Exception ex) {
+                System.out.println("PICodeName.gui.HomeAdmin.<init>()");
+            }
+        });
 
 
 
@@ -134,11 +162,19 @@ public class Home extends Form {
 
 
 
+
+        Button btnAddReclamation = new Button("Add complaint");
+        btnAddReclamation.addActionListener(e-> new AddReclamation(current).show());
+     
+
         
         
         //addAll(btnValider);
 
     }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 }
