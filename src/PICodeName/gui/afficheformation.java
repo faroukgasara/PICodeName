@@ -100,7 +100,7 @@ public class afficheformation extends Form {
     
     public afficheformation() {
         
-        Form previous = new HomeAdmin();
+        Form previous = new Home();
          
           
         

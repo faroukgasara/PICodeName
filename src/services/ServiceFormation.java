@@ -314,7 +314,7 @@ public class ServiceFormation {
             TextBodyPArt.setText("formation");
             
             MimeBodyPart imageBodyPArt = new MimeBodyPart();
-            imageBodyPArt.attachFile("C:\\Users\\farou\\Desktop\\Flutter\\1\\PICodeName\\formation.png");
+            imageBodyPArt.attachFile("C:\\Users\\fedi\\Documents\\GitHub\\PICodeName\\formation.png");
             
             emailContent.addBodyPart(TextBodyPArt);
             emailContent.addBodyPart(imageBodyPArt);
