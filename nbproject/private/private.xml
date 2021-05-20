@@ -3,23 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
-        <group>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/gui/SignInForm.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/services/ServiceEvent.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/gui/SignUpForm.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/services/serviceoffre.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/gui/WalkthruForm.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/gui/Home.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/entities/Booking.java</file>
-            <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/MyApplication.java</file>
-            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/Home.java</file>
-            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/services/ServiceFormation.java</file>
-            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/afficheformation.java</file>
-            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/ListformationC.java</file>
-            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/entities/CategorieOffre.java</file>
-            <file>file:/C:/Users/fedi/Documents/GitHub/PICodeName/src/PICodeName/gui/addParticipantf.java</file>
-        </group>
         <group>
             <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/entities/Company.java</file>
             <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/gui/frontoffre.java</file>
@@ -44,6 +27,20 @@
             <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/gui/Home.java</file>
             <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/PICodeName/gui/offrelist.java</file>
             <file>file:/C:/Users/Lenovo/Documents/GitHub/PICodeName/src/services/ServiceFormation.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/HomeAdmin.java</file>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/services/Servicerdv.java</file>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/Home.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/HomeAdmin.java</file>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/addformation.java</file>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/services/Servicerdv.java</file>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/Home.java</file>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/WalkthruForm.java</file>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/PICodeName/gui/afficheformation.java</file>
+            <file>file:/C:/Users/farou/Desktop/Flutter/1/PICodeName/src/services/ServiceFormation.java</file>
         </group>
     </open-files>
 </project-private>

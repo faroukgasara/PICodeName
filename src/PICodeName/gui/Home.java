@@ -62,73 +62,12 @@ public class Home extends Form {
 
         
         Toolbar tb = getToolbar();
-        tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this, ServiceEvent.getInstance().getAllEvents()).show());
-
-        add(new Label("Choose"));
-        Toolbar tb = getToolbar();
-        tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this,ServiceEvent.getInstance().getAllEvents()).show());
-
-        Button btnListEvents = new Button("List Events");
-
-     
-
-   
-     
-  
-
-        btnListEvents.addActionListener(e-> new ListEventsClient(current,ServiceEvent.getInstance().getAllEvents()).show());
-
-        Button btnAddEvent = new Button("Add Event");
-        Button btnAddoffre = new Button("Add Offre");
-
-
-        Button btnAddParticipantf = new Button("Add Participant");
-        
-
-        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-
-       
-        
-
-
-
-
-        Button btnAddFormation = new Button("Add Formation");
-         Button btnAfficheformation = new Button("Affiche Formation");
-        
-
-        Button btnAddrdv = new Button("Add Rendez_vous");
-        Button btnListrdv = new Button("List Rendez_vous");
-        btnAddrdv.addActionListener(e-> new Addrdv(current).show());
-        btnListrdv.addActionListener(e-> new Listrdv(current).show());
-
-        
-
-
-        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-
-        btnAddFormation.addActionListener(e-> new addformation().show());
-
-        btnAfficheformation.addActionListener(e-> new afficheformation().show());
-        
-        btnAddFormation.addActionListener(e-> new addformation().show());
-        
-
-
-
-
-        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-        btnAddoffre.addActionListener(e-> new frontoffre().show());
-        btnAddFormation.addActionListener(e-> new addformation().show());
-
+        tb.addMaterialCommandToSideMenu("Events", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this, ServiceEvent.getInstance().getAllEvents()).show());
+        tb.addMaterialCommandToSideMenu("Offer", FontImage.MATERIAL_UPDATE, e -> new frontoffre().show());
+        tb.addMaterialCommandToSideMenu("Formation", FontImage.MATERIAL_UPDATE, e -> new ListformationC().show());
 
 
         
-        
-
-
-
-         addAll(btnAddEvent,btnAddFormation,btnAfficheformation,btnListEvents,btnAddoffre,btnAddrdv,btnListrdv);
 
         
 
