@@ -5,10 +5,8 @@
  */
 package PICodeName.gui;
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
+
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
 import static com.codename1.ui.CN.addNetworkErrorListener;
@@ -20,20 +18,19 @@ import PICodeName.entities.Evenement;
 import com.codename1.ui.Button;
 import com.codename1.ui.FontImage;
 
-<<<<<<< Updated upstream
+
 
 
 import com.codename1.ui.Button;
 import com.codename1.ui.FontImage;
 
-=======
->>>>>>> Stashed changes
+
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BoxLayout;
 
-<<<<<<< Updated upstream
+
 
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
@@ -44,14 +41,14 @@ import com.codename1.components.ImageViewer;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 
->>>>>>> Stashed changes
+
 
 import java.util.ArrayList;
 import services.ServiceEvent;
 import services.ServiceReclamation;
 
 
-<<<<<<< Updated upstream
+
 
 import com.codename1.ui.util.Resources;
 
@@ -60,8 +57,7 @@ import com.codename1.ui.util.Resources;
 import services.ServiceEvent;
 
 
-=======
->>>>>>> Stashed changes
+
 /**
  *
  * @author farou
@@ -80,7 +76,9 @@ public class Home extends Form {
 
         
         Toolbar tb = getToolbar();
-        tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this, ServiceEvent.getInstance().getAllEvents()).show());
+        tb.addMaterialCommandToSideMenu("Events", FontImage.MATERIAL_UPDATE, e -> new ListEventsClient(this, ServiceEvent.getInstance().getAllEvents()).show());
+        tb.addMaterialCommandToSideMenu("Offer", FontImage.MATERIAL_UPDATE, e -> new frontoffre().show());
+        tb.addMaterialCommandToSideMenu("Formation", FontImage.MATERIAL_UPDATE, e -> new ListformationC().show());
 
         add(new Label("Choose"));
         Toolbar tb = getToolbar();
@@ -89,11 +87,7 @@ public class Home extends Form {
         Button btnListEvents = new Button("List Events");
 
      
-<<<<<<< Updated upstream
 
-=======
-       
->>>>>>> Stashed changes
    
      
   
@@ -130,33 +124,8 @@ public class Home extends Form {
         btnAddrdv.addActionListener(e-> new Addrdv(current).show());
         btnListrdv.addActionListener(e-> new Listrdv(current).show());
 
-        
-
-
-        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-
-        btnAddFormation.addActionListener(e-> new addformation().show());
-
-        btnAfficheformation.addActionListener(e-> new afficheformation().show());
-        
-        btnAddFormation.addActionListener(e-> new addformation().show());
-        
-
-
-
-
-        btnAddEvent.addActionListener(e-> new AddEvent(current).show());
-        btnAddoffre.addActionListener(e-> new frontoffre().show());
-        btnAddFormation.addActionListener(e-> new addformation().show());
-
-
 
         
-        
-
-
-
-         addAll(btnAddEvent,btnAddFormation,btnAfficheformation,btnListEvents,btnAddoffre,btnAddrdv,btnListrdv);
 
         
 
@@ -173,8 +142,4 @@ public class Home extends Form {
 
     }
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 }

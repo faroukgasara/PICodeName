@@ -49,6 +49,7 @@ public class HomeAdmin extends Form {
         tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEvents(this,ServiceEvent.getInstance().getAllEvents()).show());
         tb.addMaterialCommandToSideMenu("Meeting List", FontImage.MATERIAL_UPDATE, e -> new Listrdv(this).show());
         tb.addMaterialCommandToSideMenu("Add a Meet", FontImage.MATERIAL_UPDATE, e -> new Addrdv(this).show());
+
         tb.addMaterialCommandToSideMenu("statistics of complaint", FontImage.MATERIAL_UPDATE, e -> new StatReclamation(current).show());
         tb.addMaterialCommandToSideMenu("approuve", FontImage.MATERIAL_UPDATE, e -> new ValiderRec(this,ServiceReclamation.getInstance().affichageReclamationsa()).show());
         tb.addMaterialCommandToSideMenu("complaint", FontImage.MATERIAL_UPDATE, e -> {
@@ -59,11 +60,17 @@ public class HomeAdmin extends Form {
             }
         });
 
+        tb.addMaterialCommandToSideMenu("Offer", FontImage.MATERIAL_UPDATE, e -> new offrelist().show());
+        tb.addMaterialCommandToSideMenu("Add Offer", FontImage.MATERIAL_UPDATE, e -> new addoffre().show());
+        tb.addMaterialCommandToSideMenu("Affiche Formation", FontImage.MATERIAL_UPDATE, e -> new afficheformation().show());
+        tb.addMaterialCommandToSideMenu("Add Formation", FontImage.MATERIAL_UPDATE, e -> new addformation().show());
+
+
         setLayout(BoxLayout.y());
-<<<<<<< Updated upstream
+
         
         //addAll(btnValider);
-=======
+
         Button btnAddEvent = new Button("Add Event");
         Button btnListEvents = new Button("List Events");
         
@@ -78,7 +85,7 @@ public class HomeAdmin extends Form {
         btnAddEvent.addActionListener(e -> new AddEvent(current).show());
         btnListEvents.addActionListener(e -> new ListEvents(current,ServiceEvent.getInstance().getAllEvents()).show());
         //addAll(btnAddEvent, btnListEvents);
->>>>>>> Stashed changes
+
     }
 
 }
