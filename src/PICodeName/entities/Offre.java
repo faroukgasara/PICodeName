@@ -12,12 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
 
 /**
  *
@@ -25,7 +22,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "offre")
-
 @NamedQueries({
     @NamedQuery(name = "Offre.findAll", query = "SELECT o FROM Offre o")
     , @NamedQuery(name = "Offre.findById", query = "SELECT o FROM Offre o WHERE o.id = :id")
@@ -56,9 +52,6 @@ public class Offre implements Serializable {
     private String description;
     @Column(name = "imagesoffre")
     private String imagesoffre;
-    @JoinColumn(name = "typecategorie_id", referencedColumnName = "id")
-    @ManyToOne
-    private CategorieOffre typecategorieId;
 
     public Offre() {
     }
@@ -69,6 +62,14 @@ public class Offre implements Serializable {
 
     public Offre(Integer id, String specialite, String localisation, int nbDem, String description) {
         this.id = id;
+        this.specialite = specialite;
+        this.localisation = localisation;
+        this.nbDem = nbDem;
+        this.description = description;
+    }
+    
+        public Offre(String specialite, String localisation, int nbDem, String description) {
+        
         this.specialite = specialite;
         this.localisation = localisation;
         this.nbDem = nbDem;
@@ -121,14 +122,6 @@ public class Offre implements Serializable {
 
     public void setImagesoffre(String imagesoffre) {
         this.imagesoffre = imagesoffre;
-    }
-
-    public CategorieOffre getTypecategorieId() {
-        return typecategorieId;
-    }
-
-    public void setTypecategorieId(CategorieOffre typecategorieId) {
-        this.typecategorieId = typecategorieId;
     }
 
     @Override

@@ -6,6 +6,7 @@
 package PICodeName.gui;
 
 import PICodeName.entities.Formation;
+import PICodeName.entities.ParticipantF;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
@@ -18,40 +19,34 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.spinner.Picker;
 import services.ServiceFormation;
 
-
-
-
-
-
 /**
  *
  * @author fedi
  */
-public class addformation extends Form {
-      public addformation(){
-        setTitle("Add New Formation");
+public class addParticipantf extends Form {
+    
+    public addParticipantf(int id){
+         setTitle("Add New Formation");
         setLayout(BoxLayout.y());
-        TextField tfTitle = new TextField("", "Formation Title");
-        TextField tfDescription = new TextField("", "Formation Description");
-        TextField tfLocalisation = new TextField("", "Formation Localisation");
-        TextField tfIdsoc = new TextField("", "ID_soc");
-        Picker date = new Picker();
-        Button btnValider = new Button("Add Formation");
-        date.setType(Display.PICKER_TYPE_DATE_AND_TIME);
+        TextField tfMail = new TextField("", "Participant mail");
+        TextField tfNom = new TextField("", "participant nom");
+       
+       Button btnValider = new Button("Add Participant");
+        
         
          btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                if (tfTitle.getText().length() == 0) {
+                if (tfMail.getText().length() == 0){
                     Dialog.show("Alert", "Please Fill All fields", new Command("OK"));
                 } else {
                     
                     try {
                         
-                        Formation f = new Formation(tfDescription.getText(), date.getDate(),tfTitle.getText(), tfLocalisation.getText(), Integer.parseInt(tfIdsoc.getText()));
+                        ParticipantF p = new ParticipantF(tfMail.getText(),tfNom.getText());
                         
-                        if (ServiceFormation.getInstance().addformation(f)) {
-                            Dialog.show("Success", "Formation accepted", new Command("OK"));
+                        if (ServiceFormation.getInstance().addParticipantf(p, id)) {
+                            Dialog.show("Success", "participation accepted", new Command("OK"));
                              
                         } else {
                             Dialog.show("ERROR", "Server Error", new Command("OK"));
@@ -66,11 +61,10 @@ public class addformation extends Form {
         });
        
         
-        addAll(tfTitle,tfDescription,tfLocalisation,tfIdsoc,date, btnValider);
+        addAll(tfMail,tfNom, btnValider);
+        
+        
+        
     }
-
-  
-
-}
     
-
+}

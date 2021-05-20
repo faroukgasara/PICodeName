@@ -6,6 +6,7 @@
 package PICodeName.gui;
 
 import PICodeName.entities.Evenement;
+import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Form;
 import com.codename1.ui.Toolbar;
@@ -24,7 +25,11 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
+
 import services.ServiceEvent;
+import services.ServiceReclamation;
+
+
 
 /**
  *
@@ -33,6 +38,7 @@ import services.ServiceEvent;
 public class HomeAdmin extends Form {
 
     Form current;
+    private Resources theme;
 
     public HomeAdmin() {
         current = this;
@@ -40,19 +46,46 @@ public class HomeAdmin extends Form {
 
         Toolbar tb = getToolbar();
 
-
-
         tb.addMaterialCommandToSideMenu("Les Evenement", FontImage.MATERIAL_UPDATE, e -> new ListEvents(this,ServiceEvent.getInstance().getAllEvents()).show());
-
         tb.addMaterialCommandToSideMenu("Meeting List", FontImage.MATERIAL_UPDATE, e -> new Listrdv(this).show());
         tb.addMaterialCommandToSideMenu("Add a Meet", FontImage.MATERIAL_UPDATE, e -> new Addrdv(this).show());
 
+        tb.addMaterialCommandToSideMenu("statistics of complaint", FontImage.MATERIAL_UPDATE, e -> new StatReclamation(current).show());
+        tb.addMaterialCommandToSideMenu("approuve", FontImage.MATERIAL_UPDATE, e -> new ValiderRec(this,ServiceReclamation.getInstance().affichageReclamationsa()).show());
+        tb.addMaterialCommandToSideMenu("complaint", FontImage.MATERIAL_UPDATE, e -> {
+            try {
+                new LIstReclamations(this,ServiceReclamation.getInstance().affichageReclamationsa()).show();
+            } catch (Exception ex) {
+                System.out.println("PICodeName.gui.HomeAdmin.<init>()");
+            }
+        });
+
+        tb.addMaterialCommandToSideMenu("Offer", FontImage.MATERIAL_UPDATE, e -> new offrelist().show());
+        tb.addMaterialCommandToSideMenu("Add Offer", FontImage.MATERIAL_UPDATE, e -> new addoffre().show());
+        tb.addMaterialCommandToSideMenu("Affiche Formation", FontImage.MATERIAL_UPDATE, e -> new afficheformation().show());
+        tb.addMaterialCommandToSideMenu("Add Formation", FontImage.MATERIAL_UPDATE, e -> new addformation().show());
+
+
         setLayout(BoxLayout.y());
+
+        
+        //addAll(btnValider);
+
         Button btnAddEvent = new Button("Add Event");
         Button btnListEvents = new Button("List Events");
+        
+        
+        Button btnListRec = new Button("List of complaint");
+        btnListRec.addActionListener(e->{
+            
+                new LIstReclamations(current, ServiceReclamation.getInstance().affichageReclamationsa()).show();
+           
+        });
+        
         btnAddEvent.addActionListener(e -> new AddEvent(current).show());
         btnListEvents.addActionListener(e -> new ListEvents(current,ServiceEvent.getInstance().getAllEvents()).show());
         //addAll(btnAddEvent, btnListEvents);
+
     }
 
 }

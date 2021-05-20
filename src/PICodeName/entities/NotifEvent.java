@@ -6,7 +6,6 @@
 package PICodeName.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,22 +14,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 
 /**
  *
- * @author Lenovo
+ * @author farou
  */
 @Entity
-@Table(name = "categorie_offre")
-
+@Table(name = "notif_event")
 @NamedQueries({
-    @NamedQuery(name = "CategorieOffre.findAll", query = "SELECT c FROM CategorieOffre c")
-    , @NamedQuery(name = "CategorieOffre.findById", query = "SELECT c FROM CategorieOffre c WHERE c.id = :id")
-    , @NamedQuery(name = "CategorieOffre.findByType", query = "SELECT c FROM CategorieOffre c WHERE c.type = :type")})
-public class CategorieOffre implements Serializable {
+    @NamedQuery(name = "NotifEvent.findAll", query = "SELECT n FROM NotifEvent n"),
+    @NamedQuery(name = "NotifEvent.findById", query = "SELECT n FROM NotifEvent n WHERE n.id = :id"),
+    @NamedQuery(name = "NotifEvent.findByNotif", query = "SELECT n FROM NotifEvent n WHERE n.notif = :notif")})
+public class NotifEvent implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,21 +35,19 @@ public class CategorieOffre implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "type")
-    private String type;
-    @OneToMany(mappedBy = "typecategorieId")
-    private Collection<Offre> offreCollection;
+    @Column(name = "notif")
+    private String notif;
 
-    public CategorieOffre() {
+    public NotifEvent() {
     }
 
-    public CategorieOffre(Integer id) {
+    public NotifEvent(Integer id) {
         this.id = id;
     }
 
-    public CategorieOffre(Integer id, String type) {
+    public NotifEvent(Integer id, String notif) {
         this.id = id;
-        this.type = type;
+        this.notif = notif;
     }
 
     public Integer getId() {
@@ -64,21 +58,12 @@ public class CategorieOffre implements Serializable {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getNotif() {
+        return notif;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-  
-    public Collection<Offre> getOffreCollection() {
-        return offreCollection;
-    }
-
-    public void setOffreCollection(Collection<Offre> offreCollection) {
-        this.offreCollection = offreCollection;
+    public void setNotif(String notif) {
+        this.notif = notif;
     }
 
     @Override
@@ -91,10 +76,10 @@ public class CategorieOffre implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CategorieOffre)) {
+        if (!(object instanceof NotifEvent)) {
             return false;
         }
-        CategorieOffre other = (CategorieOffre) object;
+        NotifEvent other = (NotifEvent) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -103,7 +88,7 @@ public class CategorieOffre implements Serializable {
 
     @Override
     public String toString() {
-        return "PICodeName.entities.CategorieOffre[ id=" + id + " ]";
+        return "PICodeName.entities.NotifEvent[ id=" + id + " ]";
     }
     
 }

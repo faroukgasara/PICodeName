@@ -6,6 +6,7 @@
 package PICodeName.gui;
 
 import PICodeName.entities.Evenement;
+import PICodeName.entities.Reclamation;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
 import com.codename1.components.SpanLabel;
@@ -40,13 +41,15 @@ import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import java.util.ArrayList;
+
 import services.ServiceEvent;
+import services.ServiceReclamation;
 
 /**
  *
- * @author farou
+ * @author wae
  */
-public class ListEvents extends Form {
+public class LIstReclamations extends Form {
 
     private TextField tfPrenom;
     private TextField tfNom;
@@ -56,7 +59,7 @@ public class ListEvents extends Form {
     private Button submit;
     //Image icon = FontImage.createMaterial(FontImage.MATERIAL_UPDATE, "Button", 3.0f);
 
-    public SwipeableContainer createRankWidget(String title, String type, Evenement s, String id) {
+    public SwipeableContainer createRankWidget(String title, String type, Reclamation s, String id) {
         MultiButton button = new MultiButton(title);
         //button.setIcon(icon);
         current = this;
@@ -64,19 +67,31 @@ public class ListEvents extends Form {
         //button.setTextLine1(id);
         //button.setPressedIcon(icon);
         button.addLongPressListener(e
-                -> ServiceEvent.getInstance().deleteEvent(Integer.parseInt(id))
+                -> ServiceReclamation.getInstance().deleteRec(Integer.parseInt(id))
         );
 
         button.addLongPressListener(e
-                -> Dialog.show("Success", "Event Deleted", new Command("OK"))
+                -> Dialog.show("Success", "rec Deleted", new Command("OK"))
         );
 
         button.addLongPressListener(e
-                -> new ListEvents(current, ServiceEvent.getInstance().getAllEvents()).show()
+                -> {
+            try {
+                new LIstReclamations(current, ServiceReclamation.getInstance().affichageReclamationsa()).show();
+            } catch (Exception ex) {
+                System.out.println("PICodeName.gui.LIstReclamations.createRankWidget()");
+            }
+        }
         );
 
         button.addActionListener(e //-> new ListParticipantE(Integer.parseInt(id),current).show()
-                -> new UpdateEvent(s, id, current).show()
+                -> {
+            try {
+                new UpdateRec(s, id, current).show();
+            } catch (Exception ex) {
+               System.out.println("PICodeName.gui.LIstReclamations.createRankWidget()");
+            }
+        }
         );
         button.setTextLine2(type);
         button.setName("Label_3_3");
@@ -99,12 +114,12 @@ public class ListEvents extends Form {
         starRank.setMinValue(0);
         starRank.setMaxValue(1);
         Font fnt = Font.createTrueTypeFont("native:MainLight", "native:MainLight").
-                derive(Display.getInstance().convertToPixels(12, true), Font.STYLE_PLAIN);
+                derive(Display.getInstance().convertToPixels(5, true), Font.STYLE_PLAIN);
         Style s = new Style(0xffff33, 0, fnt, (byte) 0);
         Image fullStar = FontImage.createMaterial(FontImage.MATERIAL_STAR, s).toImage();
         s.setOpacity(100);
         s.setFgColor(0);
-        Image emptyStar = FontImage.createMaterial(FontImage.MATERIAL_LIST, s).toImage();
+        Image emptyStar = FontImage.createMaterial(FontImage.MATERIAL_WALLET_MEMBERSHIP, s).toImage();
         initStarRankStyle(starRank.getSliderEmptySelectedStyle(), emptyStar);
         initStarRankStyle(starRank.getSliderEmptyUnselectedStyle(), emptyStar);
         initStarRankStyle(starRank.getSliderFullSelectedStyle(), fullStar);
@@ -121,7 +136,7 @@ public class ListEvents extends Form {
     AutoCompleteTextField ac = new AutoCompleteTextField(options);
     Form c;
 
-    public ListEvents(Form previous, ArrayList<Evenement> ev) {
+    public LIstReclamations(Form previous, ArrayList<Reclamation> ev)  {
 
         Toolbar tb = getToolbar();
 
@@ -129,7 +144,7 @@ public class ListEvents extends Form {
         tb.addMaterialCommandToOverflowMenu("Stat", FontImage.MATERIAL_STACKED_LINE_CHART, e -> new StatEvent(current).show());
         c = new HomeAdmin();
         Form p = this;
-        setTitle("List Events Admin");
+        setTitle("List reclamation ");
         current = new Home();
         setLayout(BoxLayout.y());
 
@@ -138,9 +153,9 @@ public class ListEvents extends Form {
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);
         list.setDropTarget(true);
-        for (Evenement s : ev) {
-            list.add(createRankWidget(s.getTitle(), s.getType(), s, Integer.toString(s.getId())));
-            options.addItem(s.getTitle());
+        for (Reclamation s : ev) {
+           list.add(createRankWidget(s.getMessage(), s.getMotif(), s, Integer.toString(s.getId())));
+            options.addItem(s.getMotif());
         }
 
         f.add(list);
@@ -149,17 +164,19 @@ public class ListEvents extends Form {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
-                ListEvent();
+               
+                    ListEvent();
+               
 
             }
 
         });
 
-        ArrayList<Evenement> a = new ArrayList<Evenement>();
-        a = ServiceEvent.getInstance().getAllEvents();
-        for (Evenement s : a) {
+        ArrayList<Reclamation> a = new ArrayList<Reclamation>();
+        a = ServiceReclamation.getInstance().affichageReclamationsa();
+        for (Reclamation s : a) {
 
-            options.addItem(s.getTitle());
+            options.addItem(s.getMotif());
         }
 
         addAll(ac, btnrecherche, f);
@@ -171,30 +188,21 @@ public class ListEvents extends Form {
         rb.uiid(true);
         fab.bindFabToContainer(getContentPane());
         fab.addActionListener(e -> {
-            new AddEvent(current).show();
+            new AddReclamation(current).show();
         });
 
     }
 
-    public ArrayList<Evenement> ListEvent() {
-        ArrayList<Evenement> ev = new ArrayList<Evenement>();
+    public ArrayList<Reclamation> ListEvent()  {
+        ArrayList<Reclamation> ev = new ArrayList<Reclamation>();
 
         if (ac.getText().length() == 0) {
-            ev = ServiceEvent.getInstance().getAllEvents();
-            new ListEvents(c, ev).show();
+            ev = ServiceReclamation.getInstance().affichageReclamationsa();
+            new LIstReclamations(c, ev).show();
 
             return ev;
 
-        } else {
-            try {
-                ev = ServiceEvent.getInstance().search(ac.getText());
-                new ListEvents(c, ev).show();
-                return ev;
-
-            } catch (Exception ex) {
-                Dialog.show("ERROR", "ERROR", new Command("OK"));
-            }
-        }
+        } 
         return ev;
 
     }

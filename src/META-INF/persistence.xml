@@ -3,8 +3,26 @@
   <persistence-unit name="PICodeNamePU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>PICodeName.entities.Evenement</class>
+
+    <class>PICodeName.entities.Formation</class>
+    <class>PICodeName.entities.ParticipationE</class>
+    <class>PICodeName.entities.ParticipantE</class>
+    <class>PICodeName.entities.Booking</class>
+    <class>PICodeName.entities.Surfer</class>
+    <class>PICodeName.entities.ParticipantF</class>
+    <class>PICodeName.entities.ParticipationF</class>
+
+
     <class>PICodeName.entities.Offre</class>
     <class>PICodeName.entities.CategorieOffre</class>
+
+    <class>PICodeName.entities.NotifEvent</class>
+
+
+    <class>PICodeName.entities.Reclamation</class>
+    <class>PICodeName.entities.Company</class>
+
+
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pi?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

@@ -9,7 +9,6 @@ import PICodeName.entities.Formation;
 import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.Command;
-import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -17,23 +16,22 @@ import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
-import com.codename1.ui.Label;
 import com.codename1.ui.Slider;
 import com.codename1.ui.SwipeableContainer;
-import com.codename1.ui.TextField;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.Style;
 import java.util.ArrayList;
+import static java.util.concurrent.ThreadLocalRandom.current;
 import services.ServiceFormation;
 
 /**
  *
  * @author fedi
  */
-public class afficheformation extends Form {
+public class ListformationC extends Form {
     
         Form current = this;
       public SwipeableContainer createRankWidget(String title, String type,Formation f ,String id) {
@@ -47,20 +45,17 @@ public class afficheformation extends Form {
                 -> ServiceFormation.getInstance().deleteFormation(Integer.parseInt(id))
         );
         
-        button.addLongPressListener(e
-                -> Dialog.show("Success", "Formation Deleted", new Command("OK"))
-        );
+       
         
         Form current =this;
         button.addActionListener(e 
-                -> new updateFormation(f, id, current).show()
+                -> new addParticipantf(Integer.parseInt(id) ).show()
         );
         button.setTextLine2(type);
-        button.setTextLine3(f.getLocalisation());
         button.setName("Label_3_3");
         button.setUIID("SmallFontLabel");
 
-        return new SwipeableContainer(createStarRankSlider(id),
+        return new SwipeableContainer(null,
                 button);
     }
       private void initStarRankStyle(Style s, Image star) {
@@ -94,15 +89,11 @@ public class afficheformation extends Form {
     }
     
     
-
-   
     
-    
-    public afficheformation() {
+    public ListformationC() {
         
         Form previous = new Home();
-         
-          
+         setTitle("List Formation");
         
 
         Container list = new Container(BoxLayout.y());
@@ -113,7 +104,7 @@ public class afficheformation extends Form {
         ev = ServiceFormation.getInstance().getAllFormations();
             
         for (Formation f : ev) {
-            list.add(createRankWidget(f.getTitle(), f.getDescription() , f,Integer.toString(f.getId())));
+            list.add(createRankWidget(f.getTitle(), f.getDescription(), f,Integer.toString(f.getId())));
         }
         
         addAll(list);
@@ -126,40 +117,10 @@ public class afficheformation extends Form {
         fab.addActionListener(e -> {
             
         });
-        
-       
-        
-        
-    }
-     public void recherche(){ TextField searchField;
-            searchField = new TextField("", " Rechercher  ");
-            searchField.getHintLabel().setUIID("  ");
-            searchField.setUIID("  ");
-            getToolbar().setTitleComponent(searchField);
-            //if field content changed
-            searchField.addDataChangeListener((i1, i2) -> {
-            String t = searchField.getText();
-            if(t.length() < 1) {
-            for(Component cmp : getContentPane()) {
-            cmp.setHidden(false);
-            cmp.setVisible(true);
-            }
-            } else {
-            t = t.toLowerCase();
-            for(Component cmp: getContentPane()) {
-            //tekhou el val ta3 el champ : champ li 3malt 3lih el recherche type span label (emplacement : container->container->spanlabel )
-            String val = ((Label) ((Container)((Container) cmp).getComponentAt(0)).getComponentAt(1)).getText();
-            boolean show = val != null && val.toLowerCase().indexOf(t) > -1;
-            cmp.setHidden(!show);
-            cmp.setVisible(show);
-            }
-            }
-            getContentPane().animateLayout(250);
-            });
-             }
-    }
-    
-    
 
+    }
+
+    
+}
    
 

@@ -7,8 +7,9 @@ package services;
 
 import PICodeName.entities.Booking;
 import PICodeName.entities.Evenement;
+import PICodeName.entities.NotifEvent;
 import PICodeName.entities.ParticipantE;
-import PICodeName.utils.Statics;
+
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
@@ -43,6 +44,7 @@ public class ServiceEvent {
     public ArrayList<Evenement> events;
     public ArrayList<ParticipantE> participant;
     public ArrayList<Integer> statage;
+    public ArrayList<NotifEvent> eventnotif;
     public ArrayList<Booking> booking;
     public static ServiceEvent instance = null;
     public boolean resultOK;
@@ -493,7 +495,7 @@ public class ServiceEvent {
 
             Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
-            
+
             for (Map<String, Object> obj : list) {
 
                 float age = Float.parseFloat(obj.get("age").toString());
@@ -503,7 +505,6 @@ public class ServiceEvent {
                 e.add((int) nbage);
 
             }
-
 
         } catch (IOException ex) {
             System.out.println("services.ServiceEvent.parseEvents()");
@@ -526,8 +527,8 @@ public class ServiceEvent {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return statage;
     }
-    
-        //////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////
     public ArrayList<Integer> parsestat(String jsonText) {
         ArrayList<Integer> e = new ArrayList<Integer>();
         try {
@@ -536,7 +537,7 @@ public class ServiceEvent {
 
             Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
-            
+
             for (Map<String, Object> obj : list) {
 
                 float age = Float.parseFloat(obj.get("Mois").toString());
@@ -546,7 +547,6 @@ public class ServiceEvent {
                 e.add((int) nbage);
 
             }
-
 
         } catch (IOException ex) {
             System.out.println("services.ServiceEvent.parseEvents()");
@@ -568,6 +568,49 @@ public class ServiceEvent {
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
         return statage;
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    public ArrayList<NotifEvent> parseeventinfo(String jsonText) {
+        try {
+            eventnotif = new ArrayList<>();
+            JSONParser j = new JSONParser();
+
+            Map<String, Object> EventsListJson = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+            List<Map<String, Object>> list = (List<Map<String, Object>>) EventsListJson.get("root");
+
+            for (Map<String, Object> obj : list) {
+                NotifEvent e = new NotifEvent();
+                float id = Float.parseFloat(obj.get("id").toString());
+                e.setId((int) id);
+
+       
+                e.setNotif(obj.get("notif").toString());
+                eventnotif.add(e);
+            }
+            System.out.println(eventnotif);
+
+        } catch (IOException ex) {
+            System.out.println("services.ServiceEvent.parseEvents()");
+
+        }
+        return eventnotif;
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    public ArrayList<NotifEvent> geteventnotif() {
+        String url = "http://127.0.0.1:8000/notificationuser1";
+        req.setUrl(url);
+        req.setPost(true);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                eventnotif = parseeventinfo(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return eventnotif;
     }
 
 }

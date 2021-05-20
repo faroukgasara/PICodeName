@@ -5,10 +5,10 @@
  */
 package PICodeName.gui;
 
-import PICodeName.entities.Evenement;
-import PICodeName.entities.ParticipantE;
+import PICodeName.entities.Formation;
+import PICodeName.entities.ParticipantF;
+import com.codename1.components.FloatingActionButton;
 import com.codename1.components.MultiButton;
-import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -16,68 +16,69 @@ import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.SwipeableContainer;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.list.DefaultListModel;
+import com.codename1.ui.plaf.RoundBorder;
 import java.util.ArrayList;
-import services.ServiceEvent;
+import services.ServiceFormation;
 
 /**
  *
- * @author farou
+ * @author fedi
  */
-public class ListParticipantE extends Form {
-
+public class ListParticipantF extends Form {
+    
     Form current;
     Form c;
-    public SwipeableContainer createRankWidget(String title, String type,ParticipantE s ,int id) {
+    public SwipeableContainer createRankWidget(String title, String type,ParticipantF p ,int id) {
         MultiButton button = new MultiButton(title);
         //button.setIcon(icon);
         c = new Home();
-        current =new  ListEvents(c,ServiceEvent.getInstance().getAllEvents());
+       
 
         //button.setTextLine1(id);
         //button.setPressedIcon(icon);
-        button.addLongPressListener(e
-                -> ServiceEvent.getInstance().deleteParticipant(s.getId(),id,s.getSeat())
+       
+          button.addLongPressListener(e
+                -> ServiceFormation.getInstance().deleteParticipantf(p.getId(),id)
         );
+      
         
         button.addLongPressListener(e
                 -> Dialog.show("Success", "Participant Deleted", new Command("OK"))
         );
         
         button.addLongPressListener(e
-                -> new ListParticipantE(id,current).show()
+                -> new ListParticipantF(id).show()
         );
-
+        
         button.setTextLine2(type);
-        button.setTextLine3(s.getSeat());
+        
         button.setName("Label_3_3");
         button.setUIID("SmallFontLabel");
 
         return new SwipeableContainer(null,
                 button);
     }
+   
 
-    public ListParticipantE(int id, Form previous) {
+    public ListParticipantF(int id) {
+        Form previous = new afficheformation();
         System.out.println(id);
-        setTitle("List Part");
-        ArrayList<ParticipantE> i = new ArrayList<ParticipantE>();
-        i = ServiceEvent.getInstance().getAllParticipant(id);
+        ArrayList<ParticipantF> i = new ArrayList<ParticipantF>();
+        i = ServiceFormation.getInstance().getAllParticipantf(id);
 
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);
         list.setDropTarget(true);
-        final DefaultListModel<String> options = new DefaultListModel<>();
 
 
 
-        for (ParticipantE s : i) {
-            list.add(createRankWidget(s.getNom(), s.getMail(), s, id));
-            options.addItem(s.getNom());
+        for (ParticipantF p : i) {
+            list.add(createRankWidget(p.getNom(), p.getMail(), p, id));
         }
-        AutoCompleteTextField ac = new AutoCompleteTextField(options);
         addAll(list);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.show());
 
     }
-
+    
+    
 }
