@@ -83,10 +83,11 @@ public class AddReclamation extends Form{
                    final Dialog iDialog=ip.showInfiniteBlocking();
                    Reclamation r=new  Reclamation(String.valueOf(message.getText()).toString(),String.valueOf(b.getText()).toString(),String.valueOf(gsm.getText()).toString());
                    System.out.println("data reclamation"+r);
-                   ServiceReclamation.getInstance().ajouterReclamation(r);
+                   ServiceReclamation.getInstance().ajouterReclamation(r,"farouk.gassara@esprit.tn");
                    iDialog.dispose();
                    refreshTheme();
-                  new  LIstReclamations(previous).show();
+                  new HomeAdmin().show();
+                
                    
                }
             }catch(Exception ex){

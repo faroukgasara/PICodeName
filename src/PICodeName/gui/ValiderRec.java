@@ -49,7 +49,7 @@ import services.ServiceReclamation;
  *
  * @author wae
  */
-public class LIstReclamations extends Form {
+public class ValiderRec extends Form {
 
     private TextField tfPrenom;
     private TextField tfNom;
@@ -77,7 +77,7 @@ public class LIstReclamations extends Form {
         button.addLongPressListener(e
                 -> {
             try {
-                new LIstReclamations(current, ServiceReclamation.getInstance().affichageReclamationsa()).show();
+                new ValiderRec(current, ServiceReclamation.getInstance().affichageReclamationsa()).show();
             } catch (Exception ex) {
                 System.out.println("PICodeName.gui.LIstReclamations.createRankWidget()");
             }
@@ -85,13 +85,12 @@ public class LIstReclamations extends Form {
         );
 
         button.addActionListener(e //-> new ListParticipantE(Integer.parseInt(id),current).show()
-                -> {
-            try {
-                new UpdateRec(s, id, current).show();
-            } catch (Exception ex) {
-               System.out.println("PICodeName.gui.LIstReclamations.createRankWidget()");
-            }
-        }
+                -> ServiceReclamation.getInstance().ValiderRec(s, Integer.parseInt(id))
+           
+        
+        );
+        button.addActionListener(e
+                ->  Dialog.show("Success", "complaint approuved", new Command("OK"))
         );
         button.setTextLine2(type);
         button.setName("Label_3_3");
@@ -136,7 +135,7 @@ public class LIstReclamations extends Form {
     AutoCompleteTextField ac = new AutoCompleteTextField(options);
     Form c;
 
-    public LIstReclamations(Form previous, ArrayList<Reclamation> ev)  {
+    public ValiderRec(Form previous, ArrayList<Reclamation> ev)  {
 
         Toolbar tb = getToolbar();
 
