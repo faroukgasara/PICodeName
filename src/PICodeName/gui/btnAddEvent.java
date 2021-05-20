@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PICodeName.utils;
+package PICodeName.gui;
 
 /**
  *
- * @author farou
+ * @author OMEN
  */
-public class Statics {
-    
-    public static final String BASE_URL="http://51.89.167.87:51100";
-
+class btnAddEvent {
     
 }

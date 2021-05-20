@@ -26,7 +26,7 @@ import com.codename1.util.Base64;
 import java.util.ArrayList;
 import java.util.Map;
 import javafx.geometry.Pos;
-import org.controlsfx.control.Notifications;
+
 import services.Servicerdv;
 
 /**
